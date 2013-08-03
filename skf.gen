@@ -77,11 +77,14 @@ get_staticfiles () {
     if [ -f "$SRC/.skf.static" ]
     then
         cat "$SRC/.skf.static" | echo_them 
-    elif ! [ -z "$staticlist" ]
-        echo -e "$staticlist"  | echo_them 
-    else
-        echoerr "Static files are not defined. "
-        echoerr "Will not copy anything. "
+    else 
+        if ! [ -z "$staticlist" ]
+        then
+            echo -e "$staticlist"  | echo_them 
+        else
+            echoerr "Static files are not defined. "
+            echoerr "Will not copy anything. "
+        fi
     fi
 }
 
