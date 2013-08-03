@@ -1,3 +1,5 @@
+#!/bin/bash
+
 #  skf.gen
 #  
 #  Copyright 2013 Samir Chaouki <moebiuseye@jeannedhack.org>
@@ -15,7 +17,6 @@
 #  You should have received a copy of the GNU General Public License
 #  along with this program; if not, write to the Free Software
 #  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
-#!/bin/bash
 #  MA 02110-1301, USA.
 
 
@@ -119,6 +120,9 @@ do
     skf.gen "$websrc" "$webdst"
 done
 
+[ "$SRC" == "$SRC_DIR" ] && echo "Your website should be visible at $base_url "
+
+
 [ "$WATCH" == 1 ] || exit 0
 [ "$SRC_DIR" == "$SRC" ] || exit 0 
 
@@ -142,7 +146,6 @@ do
         skf.gen "$SRC" "$DST"
         
         # Sleep an extra 5 seconds. Because you deserved it. 
-        echo "Your website should be visible at $base_url "
         dirhash="$(get_dirhash)"
         sleep 5
         continue
