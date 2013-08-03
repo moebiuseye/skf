@@ -32,7 +32,9 @@ export email="null@null.null"
 export plugin="plain_markdown"
 export style_inherit="true"
 
-# export base_url="/"
+# Always put a trailing slash
+# This here line is for no-server websites. 
+export base_url="file://$DST_DIR/"
 EOF
 
 echo "Would you like to add the default css to this website? [y/n]"
