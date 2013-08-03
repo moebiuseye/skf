@@ -77,8 +77,11 @@ get_staticfiles () {
     if [ -f "$SRC/.skf.static" ]
     then
         cat "$SRC/.skf.static" | echo_them 
-    else 
+    elif ! [ -z "$staticlist" ]
         echo -e "$staticlist"  | echo_them 
+    else
+        echoerr "Static files are not defined. "
+        echoerr "Will not copy anything. "
     fi
 }
 
@@ -88,7 +91,7 @@ echoerr "###############
 $staticfiles
 ###############"
 
-echo "$staticfiles" | while read staticfile 
+[ -z "$staticfiles" ] || echo "$staticfiles" | while read staticfile 
 do 
     find $staticfile 2> /dev/null | while read sf 
     do

@@ -33,8 +33,13 @@ export plugin="plain_markdown"
 export style_inherit="true"
 
 # Always put a trailing slash
-# This here line is for no-server websites. 
-export base_url="file://$DST_DIR/"
+# This here-below line is for no-server websites. 
+export base_url="file://\$DST_DIR/"
+
+# This here-below is safe if you have a web server *AND* you are 
+# hosting your skf website at the root of the website. 
+# The only safe value is a canonical url, i.e http://example/dir/
+# export base_url="/"
 EOF
 
 echo "Would you like to add the default css to this website? [y/n]"
