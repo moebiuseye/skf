@@ -1,0 +1,59 @@
+#!/bin/bash
+
+vTitle=$(echo "${vTitle:-${title:-NoTitle}}" | htmlentities )
+vSubTitle=$(echo "${vSubTitle:-${subtitle:-NoSubtitle}}" | htmlentities )
+
+cat << EOF 
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+    <channel>
+      <title>$vTitle -- $vSubTitle</title>
+EOF
+
+echo -n "      <description>"
+if [ -z "$vLeftMarkdown" ] 
+then
+    ( cat "$vLeftHtml" || echo -n "$vLeftHtml" ) 2> /dev/null
+else
+    ( cat "$vLeftMarkdown" || echo -n "$vLeftMarkdown" ) 2> /dev/null | markdown 
+fi  | htmlentities 
+echo "</description>"
+
+cat << EOF 
+        <lastBuildDate>$(date -Rd "now" )</lastBuildDate>
+        <link>$vUrl</link>
+EOF
+
+
+for blogpost in $blogposts 
+do
+    bpUrl=$(echo ${blogpost#$SRC}.html )
+    tmp=$(echo ${blogpost#$SRC/posts/} | tr "-" '\n')
+    bpDate=($tmp)
+    bpYear=${bpDate[0]}
+    bpMonth=${bpDate[1]}
+    bpDay=${bpDate[2]}
+    
+    bpTitle=$(head -n 1 $blogpost)
+    bpTitle=${bpTitle#title:}
+    echoerr "blog post URL : $vUrl$bpUrl"
+    cat << EOF 
+            <item>
+              <title>$(echo $bpTitle | htmlentities )</title>
+              <description>
+EOF
+     tail -n +2 "$blogpost" | markdown | htmlentities 
+    cat << EOF
+</description>
+              <pubDate>$(date -Rd "$bpYear-$bpMonth-$bpDay 00:00:00" )</pubDate>
+              <link>$vUrl$bpUrl</link>
+            </item>
+EOF
+done
+
+
+
+cat << EOF
+    </channel>
+</rss>
+EOF

@@ -1,0 +1,89 @@
+#!/bin/bash 
+
+vTitle="${vTitle:-${title:-NoTitle}}"
+vSubTitle="${vSubTitle:-${subtitle:-NoSubtitle}}"
+
+
+vPlugin="${vPlugin:-${plugin:-Noplugin}}"
+
+cat << EOF 
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+EOF
+
+generate_header_head
+
+cat << EOF
+    <title>$vTitle -- $vSubTitle </title>
+EOF
+for stylesheet in $vStylesheets
+do
+    cat << EOF 
+    <link rel="stylesheet" href="$stylesheet" type="text/css"> 
+EOF
+done
+
+generate_header_tail
+
+cat << EOF 
+</head>
+
+<body>
+    <header>
+        <h1 class="headerTitle"><a href='$vBaseUrl'>$vTitle</a></h1>
+        <span class="headerSubtitle">Hackerspace Rouennais</span>
+    </header>
+    <ul class='folderlist'>
+EOF
+
+i=0
+echo "$vSubfolders" | while read subfolder
+do
+    sftitle="$(echo "$vSubfolderTitle" | head -n $((i+1)) | tail -n 1 )"
+    cat << EOF
+        <li><a href='$vBaseUrl$subfolder'>${sftitle:-$subfolder}</a></li>
+EOF
+    ((i+=1))
+done
+
+cat << EOF
+    </ul>
+    
+<div class='container' style='height:100%; width:100%; position:relative;' >
+<div class='side'>
+<div class='left'>
+EOF
+
+if [ -z "$vLeftMarkdown" ] 
+then
+    ( cat "$vLeftHtml" || echo "$vLeftHtml" ) 2> /dev/null
+else
+    ( cat "$vLeftMarkdown" || echo "$vLeftMarkdown" ) 2> /dev/null | markdown 
+fi
+
+cat << EOF
+</div><!-- class='left' -->
+</div><!-- class='side' -->
+</div><!-- class='container' -->
+
+<div class='main'>
+EOF
+
+if [ -z "$vMainMarkdown" ] 
+then
+    ( cat "$vMainHtml" || echo "$vMainHtml" ) 2> /dev/null
+else
+    ( cat "$vMainMarkdown" || echo "$vMainMarkdown" ) 2> /dev/null | markdown 
+fi
+
+cat << EOF
+</div><!-- class='main' -->
+
+    <div class='container' style='height:100%; width:100%; position:relative;' >
+        <div class='bottom'>powered by StatiKiss Framework ($vPlugin plugin) <img src='http://gplv3.fsf.org/gplv3-88x31.png' alt='GPLv3 logo button'></div>
+    </div>
+</body>
+</html>
+EOF

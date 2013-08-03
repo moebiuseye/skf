@@ -1,0 +1,117 @@
+
+
+
+body {
+    padding: 0;
+    margin: 0;
+
+    background-color: lightgrey;
+    height: 100%;
+    width: 100%;
+}
+
+a {
+    color: #2E3436;
+    text-decoration: none;
+    font-weight: bolder;
+}
+
+header {
+    background-color: darkgrey;
+    padding: 0.5em 2.5%;
+    width: 95%;
+    margin: 0;
+    border-bottom: grey solid 1px;
+}
+
+.headerTitle {
+    font-size: 1.5em;
+    display: inline;
+}
+
+.headerSubtitle {
+    color: lightgrey;
+    font-size: 1.5em;
+    display: inline;
+}
+
+.side {
+    background-color: lightgrey;
+    position: absolute;
+    left: 0px;
+    width: 15%;
+    min-height: 100%;
+    padding: 0 ;
+}
+
+.side .left {
+    font-size: 75%;
+}
+
+
+.folderlist {
+    list-style: none;
+    margin: 0;
+    margin-left: 0;
+    /* This is weird. Don't remove. */
+    -webkit-padding-start: 0;
+    -webkit-margin-before: 0;
+    -webkit-margin-after: 0;
+    -webkit-margin-start: 0;
+    -webkit-margin-end: 0;
+    width: 100%;
+    display: block;
+    font-size: 75%;
+}
+.folderlist li {
+    background-color: darkgrey;
+    padding: 0.3em 0;
+    padding-left: 2em;
+    display: inline-block;
+    border-bottom: grey solid 1px;
+    text-align: left;
+    min-width: 100%;
+}
+
+
+.side .left {
+    margin: 0.5em; 
+    bottom: 0;
+}
+
+
+.main {
+    background-color: white;
+    position: relative;
+    width: 70%;
+    min-height: 20em;
+    margin: 0 10% 3em 15%;
+    padding: 1% 5% 3% 5%;
+}
+
+article {
+    background-color: lightgrey;
+    margin: 3em;
+    padding: .5em 2% 2em 2%;
+}
+
+code {
+    max-width: 90%;
+    overflow-x: auto;
+    display: inline-block;
+    padding: 3px 5px;
+    background-color: lightgrey;
+}
+
+.bottom {
+    background-color: darkgrey;
+	color: #111;
+	font-size: 91%;
+	padding: 0.5em 2.5%;
+    width: 80%;
+    position:absolute; 
+    bottom: 0px;
+    left: 15%;
+    text-align: right;
+    border-top: grey solid 1px;
+}

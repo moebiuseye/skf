@@ -1,0 +1,132 @@
+#!/bin/bash
+
+#  This program is free software; you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation; either version 2 of the License, or
+#  (at your option) any later version.
+#  
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#  
+#  You should have received a copy of the GNU General Public License
+#  along with this program; if not, write to the Free Software
+#  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+#  MA 02110-1301, USA.
+ 
+
+export PATH="$PATH:~/projets/skf" # temporary
+export SHARE_DIR="$(readlink -f ~/projets/skf)" # temporary
+
+HELP=\
+'skf [-f] [-r|--recursive] (--watch|-w) SRC_DIR DST_DIR          # "watch" mode
+skf [-f] [-r|--recursive] (--generate|-g) SRC_DIR DST_DIR       # "generate" mode
+skf (-i|--init)                                                 # create website 
+skf (-d)                                                        # debug
+skf (-h|--help)                                                 # print help 
+Warning: DST_DIR should be the last argument. '
+
+# Argument list cannot be empty 
+if [ -z "$@" ] 2> /dev/null
+then
+    echo "$HELP"
+    exit
+fi
+
+i=0
+args=("$@")
+
+for ARG in $@
+do
+    ((i+=1))
+    
+    case "$ARG" in
+        "-d"|"--debug" ) 
+            export DEBUG=1 ;;
+        
+        "-h"|"--help" ) # Print help and exit 
+            echo "$HELP"
+            exit ;;
+        
+        "-i"|"--init" )
+            skf.init && echo "A website was initialized in $(pwd)."
+            exit ;; 
+        
+        "-w"|"--watch" )
+            export WATCH=1
+            export SRC_DIR="$(readlink -f "${args[$i]}" )" ;; 
+        
+        "-g"|"--generate" )
+            export GENERATE=1
+            export SRC_DIR="$(readlink -f "${args[$i]}" )" ;;
+        
+        "-r"|"--recursive" )
+            export RECURSIVE=1 ;;
+        
+        "-f"|"--force" )
+            export FORCE=1 ;;
+    esac
+done 
+
+# Get last argument (DST_DIR)
+for DST_DIR in $@ ; do : ; done
+export DST_DIR="$DST_DIR"
+
+# Making sure that last argument DST_DIR is not a switch
+if [ $(echo "$DST_DIR" | head -c 1) == "-" ]
+then 
+    echo "Le dossier de déstination doit se trouver en dernier. "
+    echo "si votre dossier de déstination commence par un tiret, "
+    echo "faite le préceder de './' ou utilisez un chemin absolu. "
+    exit
+fi
+
+# Making sure that the source and the destination are
+# not the same directory. 
+if [ "$SRC_DIR" == "$DST_DIR" ] && [ -z "$FORCE" ]
+then
+    echo "SRC_DIR et DST_DIR sont les memes dossiers. "
+    echo "Utiliser l'option [-f|--force] pour ignorer. "
+    echo "pour obtenir de l'aide: skf (-h|--help)"
+    exit
+fi
+
+# Making sure that one and only one out of the -w and -g switches 
+# are used. 
+if [ -z "$WATCH" ] && [ -z "$GENERATE" ] || [ "$GENERATE" == "$WATCH" ]
+then
+    echo "One and only one mode (-w or -g) is mandatory. "
+    $0 --help
+fi
+
+[ -d "$DST_DIR" ] || mkdir -p "$DST_DIR"
+DST_DIR="$(readlink -f "$DST_DIR")"
+
+# We want to catch ctrl+c (SIGINT)
+control_c () {
+    echo -en "\n*** Yep. You done it. You killed me. ***"
+    echo -en "\n***   Killing any remaing process.   ***\n"
+    for pid in $(jobs -p) 
+    do
+        kill -9 $pid 2> /dev/null && echo "killed pid:$pid"
+    done
+    exit $?
+}
+trap control_c SIGINT
+
+# Generating websites 
+skf.gen "$SRC_DIR" "$DST_DIR" &
+
+# Telling it to the user 
+[ -z "$GENERATE" ] || echo -n "generating your website..."
+[ -z "$WATCH" ]    || echo -n "watching changes..."
+
+# Waiting until all jobs are done 
+until [ -z "$(jobs -p)" ]
+do
+    sleep 2
+    echo -n '.'
+    jobs -p > /dev/null
+done
+echo "DONE!"
