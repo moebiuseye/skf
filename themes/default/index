@@ -37,6 +37,10 @@ cat << EOF
     </header>
 EOF
 
+cat << EOF
+<div class='container' style='height:100%; width:100%; position:relative;' >
+<div class='side'>
+EOF
 # Only have folderlist list if there are subfolders
 # NOTICE : dirty 
 [ -z "$vSubfolders" ] || (
@@ -56,8 +60,6 @@ echo "    </ul>"
 
 cat << EOF
     
-<div class='container' style='height:100%; width:100%; position:relative;' >
-<div class='side'>
 <div class='left'>
 EOF
 
