@@ -3,6 +3,7 @@
 vTitle="${vTitle:-${title:-NoTitle}}"
 vSubTitle="${vSubTitle:-${subtitle:-NoSubtitle}}"
 
+vBaseUrl="${vBaseUrl:-${base_url:-/}}"
 
 vPlugin="${vPlugin:-${plugin:-Noplugin}}"
 

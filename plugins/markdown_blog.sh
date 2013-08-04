@@ -76,7 +76,7 @@ t_markdown_blog_gen_posts () {
             done
         )"
 
-        vMainMarkdown="$(tail -n +2 $blogpost | markdown)"
+        vMainMarkdown="$(tail -n +2 "$blogpost" | sed -n "/^$/,$ p" | markdown)"
 
         vPlugin="$plugin"
         
@@ -109,6 +109,7 @@ t_markdown_blog_gen_main () {
         echo "<article>"
         echo "<h3><a href='${base_url%/}$bpUrl.html'>$bpTitle</a></h3>"
         echo "<small>$(date --date="$bpYear-$bpMonth-$bpDay 00:00:00" +'%x')</small>"
+        tail -n +2 "$blogpost" | sed -n "/^$/,$ p" | markdown
         echo "</article>"
     done
     
