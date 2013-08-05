@@ -138,16 +138,7 @@ t_skf_gen () {
     
     vSubfolders="$(echo "$(list_subfolders)
 rss.xml")"
-    vSubfolderTitle="$( 
-        echo "$vSubfolders" | while read subfolder
-        do
-            [ "$subfolder" == ".." ] && echo "$subfolder" && continue
-            subfolder="$(echo "$subfolder" | sed "s/\.[a-z]*$//")"
-            subfolder="${subfolder#??_}"
-            echo "$subfolder"
-            echoerr "subfolder:$subfolder"
-        done
-    )"
+    vSubfolderTitle="$(list_subfolder_titles)"
 
     vMainHtml="$(t_markdown_blog_gen_main)"
 

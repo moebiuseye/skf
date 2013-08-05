@@ -62,16 +62,7 @@ t_skf_gen () {
     vSubfolders="$(list_subfolders)"
     
     # NOTICE : this might be ready for getting into the lib
-    vSubfolderTitle="$( 
-        echo "$vSubfolders" | while read subfolder
-        do
-            [ "$subfolder" == ".." ] && echo "$subfolder" && continue
-            subfolder="$(echo "$subfolder" | sed "s/\.[a-z]*$//")"
-            subfolder="${subfolder#??_}"
-            echo "$subfolder"
-            echoerr "subfolder:$subfolder"
-        done
-    )"
+    vSubfolderTitle="$(list_subfolder_titles)"
 
     vMainMarkdown="$([ -f "$SRC/index.md" ] && echo "$SRC/index.md" )"
     vLeftMarkdown="$([ -f "$SRC/left.md"  ] && echo "$SRC/left.md"  )"

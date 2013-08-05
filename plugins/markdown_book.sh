@@ -52,8 +52,8 @@ list_chapters () {
     done)
     echo "$pages" | while read page 
     do
-        [ -z "$page" ] && break
-        [ -f "$page" ] || break
+        [ -z "$page" ] && continue
+        [ -f "$page" ] || continue
         page=${page#$SRC}
         pagename=${page#/}
         pagename=${pagename%\.md}
@@ -84,16 +84,7 @@ t_skf_gen () {
     vSubfolders="$(echo -e "$(list_subfolders)\n$(list_chapters)" | sort)"
 
     # NOTICE : this might be ready for getting into the lib
-    vSubfolderTitle="$( 
-        echo "$vSubfolders" | while read subfolder
-        do
-            [ "$subfolder" == ".." ] && echo "$subfolder" && continue
-            subfolder="$(echo "$subfolder" | sed "s/\.[a-z]*$//")"
-            subfolder="${subfolder#??_}"
-            echo "$subfolder"
-            echoerr "subfolder:$subfolder"
-        done
-    )"
+    vSubfolderTitle="$(list_subfolder_titles)"
 
     vPlugin="$plugin"
 

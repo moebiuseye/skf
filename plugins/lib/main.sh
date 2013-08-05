@@ -19,13 +19,24 @@ list_subfolders () {
     done)
     echo "$pages" | while read page 
     do
-        [ -z "$page" ] && break
-        [ -f "$page/.skfrc" ] || break
+        [ -z "$page" ] && continue
+        [ -f "$page/.skfrc" ] || continue
         page=${page#$SRC}
         pagename=${page#/}
         pagename=${pagename%/}
-        echo "$pagename"
+        echo $pagename
     done
+}
+
+list_subfolder_titles () {
+        echo "$vSubfolders" | while read subfolder
+        do
+            [ "$subfolder" == ".." ] && echo "$subfolder" && continue
+            subfolder="$(echo "$subfolder" | sed "s/\.[a-z]*$//")"
+            subfolder="${subfolder#??_}"
+            echo "$subfolder"
+            echoerr "subfolder:$subfolder"
+        done
 }
 
 # Will be replaced by "generate_header_links"
@@ -51,7 +62,7 @@ list_css_links () {
     for dir in $dirlist
     do
         dir=$(readlink -f "$dir")
-        [ -d "$dir/css" ] || break
+        [ -d "$dir/css" ] || continue
         find "$dir/css/"* -name "*.css" 2> /dev/null |\
         while read cssfile
         do 
@@ -69,7 +80,7 @@ generate_header () {
     while [ $((i+=1)) -lt 100 ]
     do
         [ -f "$folder/header.${1}" ] && cat "$folder/header.${1}"
-        [ "$folder" == "$SRC_DIR" ] && break
+        [ "$folder" == "$SRC_DIR" ] && continue
         folder="$(readlink -f "$folder/..")"
     done
 }
