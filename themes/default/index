@@ -51,7 +51,7 @@ echo "$vSubfolders" | while read subfolder
 do
     sftitle="$(echo "$vSubfolderTitle" | head -n $((i+1)) | tail -n 1 )"
     cat << EOF
-        <li><a href='$vBaseUrl$subfolder'>${sftitle:-$subfolder}</a></li>
+        <li><a href='$vUrl/$subfolder'>${sftitle:-$subfolder}</a></li>
 EOF
     ((i+=1))
 done
