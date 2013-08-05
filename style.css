@@ -87,9 +87,6 @@ header * {
 .main {
     background-color: white;
     position: relative;
-/*
-    width: 65%; /* ( 60% is 100-5-25 ( % ) */
-*/
     min-height: 20em;
     margin: 0 0 3em 20%;
     padding: 1% 5% 3% 5%;

@@ -12,6 +12,7 @@ cat << EOF
 <html>
 <head>
     <meta charset='utf-8'>
+    <meta http-equiv="Content-Type: application/xhtml+xml; charset=utf-8">
 EOF
 
 generate_header_head
