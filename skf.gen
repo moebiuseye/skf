@@ -126,7 +126,7 @@ do
     skf.gen "$websrc" "$webdst"
 done
 
-[ "$SRC" == "$SRC_DIR" ] && echo "Your website should be visible at $base_url "
+[ "$SRC" == "$SRC_DIR" ] && echo "Your website should be visible at ${base_url}index.html "
 
 
 [ "$WATCH" == 1 ] || exit 0

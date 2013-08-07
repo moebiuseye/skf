@@ -12,7 +12,7 @@ cat << EOF
 <html>
 <head>
     <meta charset='utf-8'>
-    <meta http-equiv="Content-Type: application/xhtml+xml; charset=utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
 EOF
 
 generate_header_head
@@ -34,7 +34,7 @@ cat << EOF
 
 <body>
     <header>
-        <h1 class="headerTitle"><a href='$vBaseUrl'>$vTitle</a></h1>
+        <h1 class="headerTitle"><a href='$vBaseUrl/index.html'>$vTitle</a></h1>
         <span class="headerSubtitle">$vSubTitle</span>
     </header>
 EOF
@@ -91,7 +91,7 @@ cat << EOF
 </div><!-- class='main' -->
 
     <div class='container' style='height:100%; width:100%; position:relative;' >
-        <div class='bottom'>powered by StatiKiss Framework ($vPlugin plugin) <img src='http://gplv3.fsf.org/gplv3-88x31.png' alt='GPLv3 logo button'></div>
+        <div class='bottom'><small>powered by StatiKiss Framework ($vPlugin plugin)</small> <img src='http://gplv3.fsf.org/gplv3-88x31.png' alt='GPLv3 logo button'></div>
     </div>
 </body>
 </html>

@@ -80,7 +80,7 @@ generate_header () {
     while [ $((i+=1)) -lt 100 ]
     do
         [ -f "$folder/header.${1}" ] && cat "$folder/header.${1}"
-        [ "$folder" == "$SRC_DIR" ] && continue
+        [ "$folder" == "$SRC_DIR" ] && break
         folder="$(readlink -f "$folder/..")"
     done
 }

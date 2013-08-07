@@ -62,6 +62,7 @@ t_markdown_blog_gen_posts () {
         vSubTitle=$(head -n 1 $blogpost)
         vSubTitle=${vSubTitle#title:}
         
+        vUrl="$vUrl/posts"
         #vBaseUrl="$baseurl"
         
         vSubfolders="$(list_subfolders)"

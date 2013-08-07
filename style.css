@@ -80,7 +80,7 @@ header * {
 .side .left {
     margin: 0.5em; 
     bottom: 0;
-    font-size: 75%;
+    font-size: 50%;
 }
 
 
@@ -93,6 +93,9 @@ header * {
 }
 .main p {
     text-align: justify;
+}
+.main * {
+    max-width: 100%;
 }
 
 article {
@@ -121,23 +124,41 @@ code {
     border-top: grey solid 1px;
 }
 
-
-
-@media (max-width: 640px) {
+@media only screen and (max-width: 640px), only screen and (max-device-width: 800px) {
+    header {
+    }
     .side {
         width: 100%;
         position: static; 
     }
     .folderlist li {
         text-align: center;
-        font-size: 100%;
         padding: 0.5em 0;
         padding-left: 0;
+        font-size: 150%;
     }
     
-
+    .side .left {
+        font-size: 125%;
+    }
+    
     .main {
-        width: 90%;
-        margin: 0 0 3em 0; 
+        width: 95%;
+        padding: 1% 2.5% 3% 2.5%;
+        margin: 0 0 3em 0;
+        
+        font-size: 110%;
+    }
+}
+
+@media only screen and (max-width: 480px), only screen and (max-device-width: 640px) {
+    .folderlist li {
+        font-size: 100%
+    }
+    .side .left {
+        font-size: 100%;
+    }
+    .main {
+        font-size: 100%;
     }
 }
