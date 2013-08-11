@@ -5,6 +5,9 @@ t_skf_gen () {
     echo "to moebiuseye <moebiuseye@jeannedhack.org>"
     find "$SRC" -maxdepth 1 -type d | while read d 
     do 
-        ! [ -f "$d"/.skfrc ] && cp -R "$d" "$DST${d#$SRC}" 
+        if ! [ -f "$d/.skfrc" ] || [ "$d" == "$SRC" ]
+        then
+            cp -R "$d" "$DST${d#$SRC}" 
+        fi
     done
 }

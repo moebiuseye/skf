@@ -83,10 +83,7 @@ get_staticfiles () {
 
 staticfiles="$(get_staticfiles)"
 
-echoerr "###############
-$staticfiles
-###############"
-
+# Copying every static file into destination. 
 [ -z "$staticfiles" ] || echo "$staticfiles" | while read staticfile 
 do 
     find $staticfile 2> /dev/null | while read sf 
@@ -99,6 +96,11 @@ do
     done
 done
 
+###################################
+#                                 #
+#   This generates the website.   #
+#                                 #
+###################################
 t_skf_gen
 
 # The here-below part is only for recursive
@@ -123,12 +125,13 @@ done
 [ "$SRC" == "$SRC_DIR" ] &&  echo "Your website should be visible at ${base_url}index.html "
 
 
-[ "$WATCH" == 1 ] || exit 0
+[ -z "$WATCH" ] && exit
 [ "$SRC_DIR" == "$SRC" ] || exit 0 
 
 
-get_dirhash () { tree -a --timefmt "%s" -F --prune -i -f "$SRC" | grep -v -E '/$' | md5sum ; }
-
+get_dirhash () { 
+    tree -a --timefmt "%s" -F --prune -i -f "$SRC" | grep -v -E '/$' | md5sum
+}
 
 # Watching changes in SRC_DIR directory 
 export WATCH=0
@@ -141,8 +144,6 @@ do
         echo
         echo "something changed. Regenerating and watching..."
         
-        
-        # RECURSION! 
         skf.gen "$SRC" "$DST"
         
         # Sleep an extra 5 seconds. Because you deserved it. 
