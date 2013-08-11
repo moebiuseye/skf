@@ -8,6 +8,7 @@ all:
 install:
 	echo $(DESTDIR)
 	
+	mkdir -p $(BIN_DIR)
 	cp -v ./skf* $(BIN_DIR)/
 	chmod -v +rx $(BIN_DIR)/skf 
 	chmod -v +rx $(BIN_DIR)/skf.gen
