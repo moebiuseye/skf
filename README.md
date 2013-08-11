@@ -8,7 +8,7 @@
 
 ### Archlinux 
 
-    yaourt skf
+    yaourt skf-git
 
 ## Usage
 
