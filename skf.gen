@@ -88,7 +88,7 @@ staticfiles="$(get_staticfiles)"
 do 
     find $staticfile 2> /dev/null | while read sf 
     do
-        [ -z "$sf" ] || continue
+        [ -z "$sf" ] && continue
         tmp="${sf/$SRC/$DST/}"
         mkdir -p "${tmp%/*}"
         echoerr "cp" "$(readlink -f "$sf")" "${sf/$SRC/$DST/}"
