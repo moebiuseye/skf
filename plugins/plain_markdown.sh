@@ -61,7 +61,6 @@ t_skf_gen () {
     
     vSubfolders="$(list_subfolders)"
     
-    # NOTICE : this might be ready for getting into the lib
     vSubfolderTitle="$(list_subfolder_titles)"
 
     vMainMarkdown="$([ -f "$SRC/index.md" ] && echo "$SRC/index.md" )"

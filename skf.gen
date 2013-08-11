@@ -24,12 +24,9 @@
 # Importing libs
 source "$SHARE_DIR/plugins/lib/"*
 
-# Creating destination directory if not present 
-mkdir -p "$2"
-
 # Setting canonical paths
-SRC="$(readlink -f "$1")"
-DST="$(readlink -f "$2")"
+SRC="$(readlink -m "$1")"
+DST="$(readlink -m "$2")"
 
 # Remove stuff if safe. 
 if [ "$SRC" != "$DST" ] && [ -d "$DST" ] && ! [ -z "$DST" ] 
@@ -39,11 +36,7 @@ then
 fi
 
 # recreating destination directory if not present 
-mkdir -p "$2"
-
-# Setting canonical paths again. 
-SRC="$(readlink -f "$1")"
-DST="$(readlink -f "$2")"
+mkdir -p "$DST"
 
 echoerr "SRC:$SRC"
 
@@ -98,6 +91,7 @@ $staticfiles
 do 
     find $staticfile 2> /dev/null | while read sf 
     do
+        [ -z "$sf" ] || continue
         tmp="${sf/$SRC/$DST/}"
         mkdir -p "${tmp%/*}"
         echoerr "cp" "$(readlink -f "$sf")" "${sf/$SRC/$DST/}"
@@ -107,8 +101,8 @@ done
 
 t_skf_gen
 
-[ -z "$RECURSIVE" ] && exit
-
+# The here-below part is only for recursive
+[ -z "$RECURSIVE" ] && exit 0
 
 
 WEBSITES=$(find "$SRC"/*  -maxdepth 0 -type d | while read dir
@@ -121,12 +115,12 @@ echo "$WEBSITES" | while read websrc
 do
     [ -d "$websrc" ] || exit
     [ -z "$websrc" ] && exit
-    webdst="$(readlink -f "$DST_DIR${websrc#$SRC_DIR}")"
+    webdst="$(readlink -m "$DST_DIR${websrc#$SRC_DIR}")"
     echoerr "webdst:$webdst"
     skf.gen "$websrc" "$webdst"
 done
 
-[ "$SRC" == "$SRC_DIR" ] && echo "Your website should be visible at ${base_url}index.html "
+[ "$SRC" == "$SRC_DIR" ] &&  echo "Your website should be visible at ${base_url}index.html "
 
 
 [ "$WATCH" == 1 ] || exit 0
@@ -136,7 +130,7 @@ done
 get_dirhash () { tree -a --timefmt "%s" -F --prune -i -f "$SRC" | grep -v -E '/$' | md5sum ; }
 
 
-# Watchine changes in DST_DIR directory 
+# Watching changes in SRC_DIR directory 
 export WATCH=0
 dirhash="$(get_dirhash)"
 while sleep 3

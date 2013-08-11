@@ -47,5 +47,5 @@ read response
 if [ "$(echo $response | head -c 1 )" == "y" ] 
 then 
     mkdir css
-    cat $SHARE_DIR/style.css > css/style.css 
+    cat $SHARE_DIR/themes/default/style.css > css/style.css 
 fi

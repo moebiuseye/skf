@@ -20,9 +20,10 @@
 #  MA 02110-1301, USA.
 
  
+export SHARE_DIR="/usr/share/skf"
 
-export PATH="$PATH:~/projets/skf" # temporary
-export SHARE_DIR="$(readlink -f ~/projets/skf)" # temporary
+[ -d "$SHARE_DIR" ] || echo "Share directory does not exist"
+[ -d "$SHARE_DIR" ] || exit 1
 
 HELP=\
 'skf [-f] [-r|--recursive] (--watch|-w) SRC_DIR DST_DIR          # "watch" mode
@@ -60,11 +61,11 @@ do
         
         "-w"|"--watch" )
             export WATCH=1
-            export SRC_DIR="$(readlink -f "${args[$i]}" )" ;; 
+            export SRC_DIR="$(readlink -m "${args[$i]}" )" ;; 
         
         "-g"|"--generate" )
             export GENERATE=1
-            export SRC_DIR="$(readlink -f "${args[$i]}" )" ;;
+            export SRC_DIR="$(readlink -m "${args[$i]}" )" ;;
         
         "-r"|"--recursive" )
             export RECURSIVE=1 ;;
@@ -102,11 +103,12 @@ fi
 if [ -z "$WATCH" ] && [ -z "$GENERATE" ] || [ "$GENERATE" == "$WATCH" ]
 then
     echo "One and only one mode (-w or -g) is mandatory. "
-    $0 --help
+    echo "$HELP"
+    exit
 fi
 
-[ -d "$DST_DIR" ] || mkdir -p "$DST_DIR"
-DST_DIR="$(readlink -f "$DST_DIR")"
+
+DST_DIR="$(readlink -m "$DST_DIR")"
 
 # We want to catch ctrl+c (SIGINT)
 control_c () {

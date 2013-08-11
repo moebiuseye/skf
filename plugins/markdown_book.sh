@@ -82,18 +82,17 @@ t_skf_gen () {
     vStylesheets=("$(list_css_links)")
     
     vSubfolders="$(echo -e "$(list_subfolders)\n$(list_chapters)" | sort)"
-
-    # NOTICE : this might be ready for getting into the lib
+    
     vSubfolderTitle="$(list_subfolder_titles)"
 
     vPlugin="$plugin"
 
-    vLeftMarkdown="$([ -f "$SRC/left.md"  ] && echo "$SRC/left.md"  )"
+    vLeftMarkdown="$([ -f "$SRC/left.md"  ] && echo "$SRC/left.md" )"
     
     i=0
     find "$SRC" -maxdepth 1 -name "*.md" | grep -v -E "/left.md$" | sort | while read mdfile 
     do
-        mdfile="$(readlink -f "$mdfile")"
+        mdfile="$(readlink -m "$mdfile")"
         mdfile="${mdfile#$SRC}"
         mdfile="${mdfile%\.md}"
         vMainMarkdown="$([ -f "$SRC/$mdfile.md" ] && echo "$SRC/$mdfile.md" )"
