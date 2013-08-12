@@ -36,7 +36,7 @@ then
 fi
 
 # recreating destination directory if not present 
-mkdir -p "$DST"
+mkdir -p -- "$DST"
 
 echoerr "SRC:$SRC"
 
@@ -90,9 +90,9 @@ do
     do
         [ -z "$sf" ] && continue
         tmp="${sf/$SRC/$DST/}"
-        mkdir -p "${tmp%/*}"
+        mkdir -p -- "${tmp%/*}"
         echoerr "cp" "$(readlink -f "$sf")" "${sf/$SRC/$DST/}"
-        cp "$(readlink -f "$sf")" "${sf/$SRC/$DST/}" & 
+        cp -- "$(readlink -f "$sf")" "${sf/$SRC/$DST/}" & 
     done
 done
 

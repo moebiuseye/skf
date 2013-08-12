@@ -4,7 +4,7 @@
 # and `source`ing a view file, redirecting it's output into the desired 
 # target file. 
 # You should also "prepare" the destination directory 
-# ( mkdir -p "$DST" and touch "$DST/$dstfile" ) before 
+# ( mkdir -p -- "$DST" and touch -- "$DST/$dstfile" ) before 
 # you use the view files. 
 # You should read the view file your plugin is made for, 
 # before writing a plugin. Everytime you write a line without 
@@ -45,7 +45,7 @@
 
 t_markdown_blog_gen_rss () {
     # preparing destintion
-    touch "$DST/rss.xml"
+    touch -- "$DST/rss.xml"
     
     blogposts=$(find $SRC/posts/*-*-*-*.md)
     
@@ -54,7 +54,7 @@ t_markdown_blog_gen_rss () {
 
 t_markdown_blog_gen_posts () {
     # Preparing destination 
-    mkdir -p "$DST/posts"
+    mkdir -p -- "$DST/posts"
     
     find $SRC/posts/*-*-*-*.md | while read blogpost 
     do
@@ -83,7 +83,7 @@ t_markdown_blog_gen_posts () {
         
         # preparing destination 
         bpHtmlFile="${blogpost/$SRC_DIR/$DST_DIR/}.html"
-        touch "$bpHtmlFile"
+        touch -- "$bpHtmlFile"
         
         # generating blog post page
         source $SHARE_DIR/themes/default/index > "$bpHtmlFile"
@@ -119,8 +119,8 @@ t_markdown_blog_gen_main () {
 
 t_skf_gen () {
     # Preparing destination 
-    mkdir -p "$DST"
-    touch "$DST/index.html"
+    mkdir -p -- "$DST"
+    touch -- "$DST/index.html"
     
     export vLeftMarkdown="$([ -f "$SRC/left.md"  ] && echo "$SRC/left.md"  )"
     export vUrl="${base_url%/}${DST#$DST_DIR}"

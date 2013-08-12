@@ -5,7 +5,7 @@
 # and `source`ing a view file, redirecting it's output into the desired 
 # target file. 
 # You should also "prepare" the destination directory 
-# ( mkdir -p "$DST" and touch "$DST/$dstfile" ) before 
+# ( mkdir -p -- "$DST" and touch -- "$DST/$dstfile" ) before 
 # you use the view files. 
 # You should read the view file your plugin is made for, 
 # before writing a plugin. Everytime you write a line without 
@@ -63,8 +63,8 @@ list_chapters () {
 
 t_skf_gen () {
     # Preparing destination 
-    mkdir -p "$DST"
-    touch "$DST/index.html"
+    mkdir -p -- "$DST"
+    touch -- "$DST/index.html"
     
     # Setting variables
     #vTitle="$title"

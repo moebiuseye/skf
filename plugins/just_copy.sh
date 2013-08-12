@@ -8,7 +8,7 @@ t_skf_gen () {
     do 
         if ! [ -f "$d/.skfrc" ] || [ "$d" == "$SRC" ]
         then
-            cp -R "$d" "$DST${d#$SRC}" 
+            cp -R -- "$d" "$DST${d#$SRC}" 
         fi
     done
 }
