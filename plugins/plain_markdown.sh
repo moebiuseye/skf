@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # The whole idea of plugins here, is to set some variables 
 # and `source`ing a view file, redirecting it's output into the desired 

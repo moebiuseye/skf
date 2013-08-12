@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 
 # The whole idea of plugins here, is to set some variables 
@@ -60,12 +60,6 @@ list_chapters () {
         echo "$pagename.html"
     done
 }
-
-# NOTICE : devellopement of this plugin is held until 
-# I have found a reliable way to generate title lists and 
-# filename/subfolder lists. (vSubCategoryTitleList vSubCategoryUrlList) 
-# Also, files and Subfolders can be names like so "01_title.html" or "01_title/"
-# so that they are in order. 
 
 t_skf_gen () {
     # Preparing destination 

@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 
 # Not tested. Report bugs 
 t_skf_gen () {

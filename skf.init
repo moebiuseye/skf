@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # NOTICE : this is bullcrap Make a /usr/share/skf/init/ directory !
 

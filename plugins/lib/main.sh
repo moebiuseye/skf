@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Setting the echoerr function. 
 if [ -z "$DEBUG" ]
