@@ -32,7 +32,7 @@ DST="$(readlink -m "$2")"
 if [ "$SRC" != "$DST" ] && [ -d "$DST" ] && ! [ -z "$DST" ] 
 then
     echoerr "removing directory \"$DST\""
-    rm -rf "$DST"
+    rm -rf -- "$DST"
 fi
 
 # recreating destination directory if not present 
