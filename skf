@@ -40,40 +40,50 @@ then
     exit
 fi
 
-i=0
-args=("$@")
-
-for ARG in $@
+while getopts "w:g:dhirf-:" arg
 do
-    ((i+=1))
+    if [ "$arg" == "-" ]
+    then
+        arg="$OPTARG"
+        OPTARG="${!OPTIND}";
+    fi
     
-    case "$ARG" in
-        "-d"|"--debug" ) 
-            export DEBUG=1 ;;
+    case $arg in
         
-        "-h"|"--help" ) # Print help and exit 
+        "d"|"debug" ) 
+            export DEBUG=1 
+            ;;
+        
+        "h"|"help" ) # Print help and exit 
             echo "$HELP"
-            exit ;;
+            exit 
+            ;;
         
-        "-i"|"--init" )
+        "i"|"init" )
             skf.init && echo "A website was initialized in $(pwd)."
-            exit ;; 
+            exit 
+            ;; 
         
-        "-w"|"--watch" )
+        "w"|"watch" )
             export WATCH=1
-            export SRC_DIR="$(readlink -m "${args[$i]}" )" ;; 
-        
-        "-g"|"--generate" )
+            export SRC_DIR="$(readlink -m "${OPTARG}" )" 
+            ;; 
+            
+        "g"|"generate" )
             export GENERATE=1
-            export SRC_DIR="$(readlink -m "${args[$i]}" )" ;;
+            export SRC_DIR="$(readlink -m "${OPTARG}" )" 
+            ;;
+            
+        "r"|"recursive" )
+            export RECURSIVE=1 
+            ;;
         
-        "-r"|"--recursive" )
-            export RECURSIVE=1 ;;
-        
-        "-f"|"--force" )
-            export FORCE=1 ;;
+        "f"|"force" )
+            export FORCE=1 
+            ;;
     esac
-done 
+done
+
 
 # Get last argument (DST_DIR)
 for DST_DIR in $@ ; do : ; done
