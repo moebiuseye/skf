@@ -42,18 +42,18 @@ do
     bpTitle=${bpTitle#title:}
     echoerr "blog post URL : $vUrl$bpUrl"
     cat << EOF 
-            <item>
-              <title>$(echo $bpTitle | htmlentities )</title>
-              <description></description>
-              <content:encoded>
+        <item>
+            <title>$(echo $bpTitle | htmlentities )</title>
+            <description></description>
+            <content:encoded>
 EOF
-     tail -n +2 "$blogpost" | sed -n "/^$/,$ p" | markdown | htmlentities 
+    tail -n +2 "$blogpost" | sed -n "/^$/,$ p" | markdown | htmlentities 
     cat << EOF
-</content:encoded>
-              <pubDate>$(date -Rd "$bpYear-$bpMonth-$bpDay 00:00:00" )</pubDate>
-              <link>$vUrl$bpUrl</link>
-              <guid isPermaLink="true">$vUrl$bpUrl</guid>
-            </item>
+            </content:encoded>
+            <pubDate>$(date -Rd "$bpYear-$bpMonth-$bpDay 00:00:00" )</pubDate>
+            <link>$vUrl$bpUrl</link>
+            <guid isPermaLink="true">$vUrl$bpUrl</guid>
+        </item>
 EOF
 done
 

@@ -92,7 +92,7 @@ do
         tmp="${sf/$SRC/$DST/}"
         mkdir -p -- "${tmp%/*}"
         echoerr "cp" "$(readlink -f "$sf")" "${sf/$SRC/$DST/}"
-        cp -- "$(readlink -f "$sf")" "${sf/$SRC/$DST/}" & 
+        cp -- "$(readlink -f "$sf")" "${sf/$SRC/$DST/}" 
     done
 done
 
@@ -134,7 +134,7 @@ get_dirhash () {
 }
 
 # Watching changes in SRC_DIR directory 
-export WATCH=0
+export WATCH=""
 dirhash="$(get_dirhash)"
 while sleep 3
 do

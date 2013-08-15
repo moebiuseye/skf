@@ -45,7 +45,9 @@ do
     if [ "$arg" == "-" ]
     then
         arg="$OPTARG"
-        OPTARG="${!OPTIND}";
+        [ "$(echo "${!OPTIND}" | head -c 1 )" == "-" ] \
+            && ((OPTIND+=1)) \
+            || OPTARG="${!OPTIND}"
     fi
     
     case $arg in
