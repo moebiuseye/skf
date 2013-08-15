@@ -91,7 +91,7 @@ cat << EOF
 </div><!-- class='main' -->
 
     <div class='container' style='height:100%; width:100%; position:relative;' >
-        <div class='bottom'><small>powered by StatiKiss Framework ($vPlugin plugin)</small> <img src='http://gplv3.fsf.org/gplv3-88x31.png' alt='GPLv3 logo button'></div>
+        <div class='bottom'><small>powered by StatiKiss Framework ($vPlugin plugin)</small>
     </div>
 </body>
 </html>
