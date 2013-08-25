@@ -56,13 +56,13 @@ t_markdown_blog_gen_posts () {
     # Preparing destination 
     mkdir -p -- "$DST/posts"
     
+    local vUrl="$vUrl/posts"
     find $SRC/posts/*-*-*-*.md | while read blogpost 
     do
         # setting variables
         vSubTitle=$(head -n 1 $blogpost)
         vSubTitle=${vSubTitle#title:}
         
-        vUrl="$vUrl/posts"
         #vBaseUrl="$baseurl"
         
         vSubfolders="$(list_subfolders)"
