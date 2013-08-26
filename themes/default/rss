@@ -28,7 +28,7 @@ cat << EOF
         <atom:link rel="self" href="$vUrl/rss.xml" />
 EOF
 
-
+blogpost=$(echo $blogpost | tac)
 for blogpost in $blogposts 
 do
     bpUrl=$(echo ${blogpost#$SRC}.html )
