@@ -142,10 +142,6 @@ skf.gen "$SRC_DIR" "$DST_DIR" &
 [ -z "$WATCH" ]    || echo -n "watching changes..."
 
 # Waiting until all jobs are done 
-until [ -z "$(jobs -p)" ]
-do
-    sleep 2
-    echo -n '.'
-    jobs -p > /dev/null
-done
+wait $(jobs -p)
+
 echo "DONE!"

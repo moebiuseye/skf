@@ -125,7 +125,7 @@ done
 [ "$SRC" == "$SRC_DIR" ] &&  echo "Your website should be visible at ${base_url}index.html "
 
 
-[ -z "$WATCH" ] && exit
+[ -z "$WATCH" ] && exit 0
 [ "$SRC_DIR" == "$SRC" ] || exit 0 
 
 
