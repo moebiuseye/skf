@@ -45,7 +45,6 @@
 
 
 t_skf_gen () {
-    echo "plain_markdown plugin is deprecated. Please use markdown_book instead. "
     # Preparing destination 
     mkdir -p -- "$DST"
     touch -- "$DST/index.html"
