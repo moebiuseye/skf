@@ -106,7 +106,7 @@ do
     [ -f "$dir/.skfrc" ] && echo "$dir"
 done)
 
-echo "$WEBSITES"
+echoerr "$WEBSITES"
 echo "$WEBSITES" | while read websrc
 do
     [ -d "$websrc" ] || exit
