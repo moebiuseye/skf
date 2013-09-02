@@ -28,12 +28,6 @@ source "$SHARE_DIR/plugins/lib/"*
 SRC="$(readlink -m "$1")"
 DST="$(readlink -m "$2")"
 
-# Remove stuff if safe. 
-if [ "$SRC" != "$DST" ] && [ -d "$DST" ] && ! [ -z "$DST" ] 
-then
-    echoerr "removing directory \"$DST\""
-    rm -rf -- "$DST"
-fi
 
 # recreating destination directory if not present 
 mkdir -p -- "$DST"

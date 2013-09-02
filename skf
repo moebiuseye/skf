@@ -94,9 +94,11 @@ export DST_DIR="$DST_DIR"
 # Making sure that last argument DST_DIR is not a switch
 if [ $(echo "$DST_DIR" | head -c 1) == "-" ]
 then 
-    echo "Le dossier de déstination doit se trouver en dernier. "
-    echo "si votre dossier de déstination commence par un tiret, "
-    echo "faite le préceder de './' ou utilisez un chemin absolu. "
+    cat << EOF 
+The destination directory should be at the end. If your destination 
+directory begins with a dash, please prepend it with "./" or use an absolute 
+path. 
+EOF
     exit
 fi
 
@@ -104,9 +106,11 @@ fi
 # not the same directory. 
 if [ "$SRC_DIR" == "$DST_DIR" ] && [ -z "$FORCE" ]
 then
-    echo "SRC_DIR et DST_DIR sont les memes dossiers. "
-    echo "Utiliser l'option [-f|--force] pour ignorer. "
-    echo "pour obtenir de l'aide: skf (-h|--help)"
+    cat << EOF
+SRC_DIR and DST_DIR are the same directories. Use the -f (--force) flag to 
+ignore this conflict. (Be aware that you might lose some work.)
+To obtain some help: skf -h or skf --help
+EOF
     exit
 fi
 
