@@ -45,9 +45,9 @@ do
     if [ "$arg" == "-" ]
     then
         arg="$OPTARG"
-        [ "$(echo "${!OPTIND}" | head -c 1 )" == "-" ] \
-            && ((OPTIND+=1)) \
-            || OPTARG="${!OPTIND}"
+        CURARG="${!OPTIND}"
+        [[ ${CURARG:0:1} == '-' ]] || OPTARG="${!OPTIND}"
+        [[ ${CURARG:0:1} == '-' ]] || ((OPTIND+=1))
     fi
     
     case $arg in
@@ -92,7 +92,7 @@ for DST_DIR in $@ ; do : ; done
 export DST_DIR="$DST_DIR"
 
 # Making sure that last argument DST_DIR is not a switch
-if [ $(echo "$DST_DIR" | head -c 1) == "-" ]
+if [ "${DST_DIR:0:1}" == "-" ]
 then 
     cat << EOF 
 The destination directory should be at the end. If your destination 

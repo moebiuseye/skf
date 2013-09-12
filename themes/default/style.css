@@ -88,7 +88,7 @@ header * {
     background-color: white;
     position: relative;
     min-height: 20em;
-    margin: 0 0 3em 20%;
+    margin: 0 0 1em 20%;
     padding: 1% 5% 3% 5%;
 }
 .main p {

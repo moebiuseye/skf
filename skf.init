@@ -44,7 +44,7 @@ EOF
 
 echo "Would you like to add the default css to this website? [y/n]"
 read response 
-if [ "$(echo $response | head -c 1 )" == "y" ] 
+if [ "${response:0:1}" == "y" ] 
 then 
     mkdir css
     cat $SHARE_DIR/themes/default/style.css > css/style.css 

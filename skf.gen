@@ -36,7 +36,8 @@ echoerr "SRC:$SRC"
 
 # Just to be sure that this is actualy a website. 
 if [ -d "$SRC" ] && [ -f "$SRC/.skfrc" ] 
-then :
+then 
+    echoerr "Detected Website dir \"$SRC\"."
 else 
     echo "Invalid directory \"$SRC\". This should never happen! "
     exit 1 
@@ -73,9 +74,11 @@ get_staticfiles () {
             echoerr "Will not copy anything. "
         fi
     fi
+    unset echo_them
 }
 
 staticfiles="$(get_staticfiles)"
+unset get_staticfiles
 
 # Copying every static file into destination. 
 [ -z "$staticfiles" ] || echo "$staticfiles" | while read staticfile 
