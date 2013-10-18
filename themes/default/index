@@ -48,14 +48,15 @@ EOF
 # NOTICE : dirty 
 [ -z "$vSubfolders" ] || (
 echo "    <ul class='folderlist'>"
-i=0
+i=-1
 echo "$vSubfolders" | while read subfolder
 do
+    ((i+=1))
     sftitle="$(echo "$vSubfolderTitle" | head -n $((i+1)) | tail -n 1 )"
+    [[ -z $sftitle ]] && continue
     cat << EOF
         <li><a href='$vUrl/$subfolder'>${sftitle:-$subfolder}</a></li>
 EOF
-    ((i+=1))
 done
 echo "    </ul>" 
 )
