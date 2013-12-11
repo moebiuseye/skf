@@ -64,7 +64,7 @@ get_staticfiles () {
     }
     if [ -f "$SRC/.skf.static" ]
     then
-        cat "$SRC/.skf.static" | echo_them 
+        echo_them < "$SRC/.skf.static"
     else 
         if ! [ -z "$staticlist" ]
         then

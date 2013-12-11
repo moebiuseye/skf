@@ -47,5 +47,5 @@ read response
 if [ "${response:0:1}" == "y" ] 
 then 
     mkdir css
-    cat $SHARE_DIR/themes/default/style.css > css/style.css 
+    css/style.css < $SHARE_DIR/themes/default/style.css
 fi

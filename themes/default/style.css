@@ -67,7 +67,7 @@ header * {
 }
 .folderlist li {
     background-color: darkgrey;
-    padding: 0.3em 0;
+    padding: 0.35em 0;
     padding-left: 2%;
     display: inline-block;
     border-bottom: grey solid 1px;
