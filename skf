@@ -22,7 +22,7 @@
  
 export SHARE_DIR="/usr/share/skf"
 
-[ -d "$SHARE_DIR" ] || echo "Share directory does not exist"
+[ -d "$SHARE_DIR" ] || echo "Share directory does not exist. skf was not installed properly. "
 [ -d "$SHARE_DIR" ] || exit 1
 
 HELP=\
