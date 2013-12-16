@@ -16,4 +16,5 @@ install:
 	
 	mkdir -p $(SHARE_DIR)/skf
 	cp -vR ./plugins $(SHARE_DIR)/skf/
+	cp -vR ./lib $(SHARE_DIR)/skf/
 	cp -vR ./themes $(SHARE_DIR)/skf/

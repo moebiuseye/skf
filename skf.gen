@@ -22,7 +22,7 @@
 
 
 # Importing libs
-source "$SHARE_DIR/plugins/lib/"*
+source "$SHARE_DIR/lib/"*
 
 # Setting canonical paths
 SRC="$(readlink -m "$1")"

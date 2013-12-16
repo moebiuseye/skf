@@ -60,7 +60,7 @@ t_markdown_blog_gen_posts () {
     find $SRC/posts/*-*-*-*.md | while read blogpost 
     do
         # setting variables
-        vSubTitle=$(head -n 1 $blogpost)
+        vSubTitle=$(head -n 1 $blogpost | grep -E '^title:' )
         vSubTitle=${vSubTitle#title:}
         
         #vBaseUrl="$baseurl"
