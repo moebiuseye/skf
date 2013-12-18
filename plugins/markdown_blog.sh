@@ -63,7 +63,7 @@ t_markdown_blog_gen_posts () {
         vSubTitle=$((grep -E '^title:' | head -n 1) < $blogpost )
         vSubTitle=${vSubTitle#title:}
         
-        #vBaseUrl="$baseurl"
+        #vBaseUrl="$base_url"
         
         vSubfolders="$(list_subfolders)"
         vSubfolderTitle="$( 
@@ -135,7 +135,7 @@ t_skf_gen () {
     #vTitle="$title"
     #vSubTitle="$subtitle"
     
-    #vBaseUrl="$baseurl"
+    #vBaseUrl="$base_url"
     
     vSubfolders="$(echo "$(list_subfolders)
 rss.xml")"

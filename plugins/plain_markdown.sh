@@ -54,7 +54,7 @@ t_skf_gen () {
     #vSubTitle="$subtitle"
     
     vUrl="${base_url%/}${DST#$DST_DIR}"
-    #vBaseUrl="$baseurl"
+    #vBaseUrl="$base_url"
 
     echoerr "STOP"
     vStylesheets=("$(list_css_links)")

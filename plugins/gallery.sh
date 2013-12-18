@@ -44,21 +44,14 @@
 # vHeaderHead   # echoed right after  the openning <head>  tag
 # vHeaderTail   # echoed right before the closing  </head> tag
 
-list_chapters () {
-    # Next ?
-    pages=$(find "$SRC"/* -maxdepth 0 -name "*.md" | grep -v -E "/left.md$" | while read dir
-    do
-        echo "$dir"
-    done)
-    echo "$pages" | while read page 
-    do
-        [ -z "$page" ] && continue
-        [ -f "$page" ] || continue
-        page=${page#$SRC}
-        pagename=${page#/}
-        pagename=${pagename%\.md}
-        echo "$pagename.html"
-    done
+cp_images () {
+    mkdir -p -- "$DST/images"
+    if command -v rsync 2>&1 > /dev/null
+    then
+        rsync -a -- "$SRC/images/" "$DST/images"
+    else
+        cp -- "$SRC/images/" "$DST/images"
+    fi
 }
 
 t_skf_gen () {
@@ -75,7 +68,7 @@ t_skf_gen () {
 
     vStylesheets=("$(list_css_links)")
     
-    vSubfolders="$(echo -e "$(list_subfolders)\n$(list_chapters)" | sort)"
+    vSubfolders="$(echo -e "$(list_subfolders)" | sort)"
     
     vSubfolderTitle="$(list_subfolder_titles)"
 
@@ -83,24 +76,55 @@ t_skf_gen () {
 
     vLeftMarkdown="$([ -f "$SRC/left.md"  ] && echo "$SRC/left.md" )"
     
-    i=0
-    find "$SRC" -maxdepth 1 -name "*.md" | grep -v -E "/left.md$" | sort | while read mdfile 
+    n=0
+    imglist=($(find "$SRC/images" -maxdepth 1 | grep -E "(jpg|png|jpeg)$" | sort))
+    
+    for image in ${imglist[@]}
     do
-        mdfile="$(readlink -m "$mdfile")"
-        mdfile="${mdfile#$SRC}"
-        mdfile="${mdfile%\.md}"
-        vMainMarkdown="$([ -f "$SRC/$mdfile.md" ] && echo "$SRC/$mdfile.md" )"
+        vMainMarkdown=""
+        vSubTitle=""
         
-        vSubTitle="${mdfile#/}"
-        vSubTitle="${vSubTitle#??_}"
-        vSubTitle=${vSubTitle:-$title}
-        if [ $i -eq 0 ]
+        image="$(readlink -m "$image")"
+        image="${image#$SRC}"
+        imgname="${image%\.*}"
+        pagename="${imgname#/images/}"
+        
+        next="/index.html"
+        if [[ "${imglist[n+1]}" != "" ]]
         then
+            next="$(readlink -m "${imglist[n+1]}")"
+            next="${next#$SRC}"
+            next="${next%\.*}"
+            next="${next#/images/}.html"
+        fi
+        
+        vSubTitle="$pagename"
+        mdfile="${SRC}/images${pagename}.md"
+        if [[ -f "${mdfile}" ]]
+        then
+            vSubTitle=$((grep -E '^title:' | head -n 1) < "${mdfile}" )
+            vSubTitle=${vSubTitle#title:}
+            vMainMarkdown="$(tail -n +2 "${mdfile}" | sed -n "/^$/,$ p")"
+        fi
+        
+        vMainMarkdown="$(echo "
+[![$imgname]("${base_url}${image}")](${base_url}${next})
+")
+$vMainMarkdown"
+
+        if [ $n -eq 0 ]
+        then
+            touch -- "$DST/index.html"
             source "$SHARE_DIR/themes/default/index" > "$DST/index.html"
         fi
-        source "$SHARE_DIR/themes/default/index" > "$DST/$mdfile.html"
-        ((i+=1))
+        touch -- "$DST/$pagename.html"
+        source "$SHARE_DIR/themes/default/index" > "$DST/$pagename.html"
+        
+        ((n+=1))
     done
+    
+    # And finaly, copy the images. 
+    cp_images
 }
 export staticlist="css/*.css
 img/*
