@@ -151,4 +151,5 @@ rss.xml")"
 }
 export staticlist="css/*.css
 img/*
+fonts/*
 "

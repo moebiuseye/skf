@@ -1,84 +1,84 @@
 
 @font-face {
     font-family: 'Alegreya';
-        src: url('../fonts/AlegreyaRegular.otf') format('opentype');
+        src: url('/fonts/Alegreya-Regular.otf') format('opentype');
     font-weight: normal;
     font-style: normal;
       }
 
 @font-face {
     font-family: 'Alegreya';
-        src: url('../fonts/AlegreyaItalic.otf') format('opentype');
+        src: url('/fonts/Alegreya-Italic.otf') format('opentype');
     font-weight: normal;
     font-style: italic;
       }
 
 @font-face {
     font-family: 'Alegreya';
-        src: url('../fonts/AlegreyaBoldItalic.otf') format('opentype');
+        src: url('/fonts/Alegreya-BoldItalic.otf') format('opentype');
     font-weight: bold;
     font-style: italic;
       }
 
 @font-face {
     font-family: 'Alegreya';
-        src: url('../fonts/AlegreyaBold.otf') format('opentype');
-    font-weight: bold;
-    font-style: normal;
-      }
-
-@font-face {
-    font-family: 'Alegreya';
-        src: url('../fonts/AlegreyaBlackItalic.otf') format('opentype');
-    font-weight: normal;
-    font-style: italic;
-      }
-
-@font-face {
-    font-family: 'Alegreya';
-        src: url('../fonts/AlegreyaBlack.otf') format('opentype');
-    font-weight: normal;
-    font-style: normal;
-      }
-
-@font-face {
-    font-family: 'Alegreya';
-        src: url('../fonts/AlegreyaRegular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-      }
-
-@font-face {
-    font-family: 'Alegreya';
-        src: url('../fonts/AlegreyaItalic.ttf') format('truetype');
-    font-weight: normal;
-    font-style: italic;
-      }
-
-@font-face {
-    font-family: 'Alegreya';
-        src: url('../fonts/AlegreyaBoldItalic.ttf') format('truetype');
-    font-weight: bold;
-    font-style: italic;
-      }
-
-@font-face {
-    font-family: 'Alegreya';
-        src: url('../fonts/AlegreyaBold.ttf') format('truetype');
+        src: url('/fonts/Alegreya-Bold.otf') format('opentype');
     font-weight: bold;
     font-style: normal;
       }
 
 @font-face {
     font-family: 'Alegreya';
-        src: url('../fonts/AlegreyaBlackItalic.ttf') format('truetype');
+        src: url('/fonts/Alegreya-BlackItalic.otf') format('opentype');
+    font-weight: normal;
+    font-style: italic;
+      }
+
+@font-face {
+    font-family: 'Alegreya';
+        src: url('/fonts/Alegreya-Black.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+      }
+
+@font-face {
+    font-family: 'Alegreya';
+        src: url('/fonts/Alegreya-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+      }
+
+@font-face {
+    font-family: 'Alegreya';
+        src: url('/fonts/Alegreya-Italic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+      }
+
+@font-face {
+    font-family: 'Alegreya';
+        src: url('/fonts/Alegreya-BoldItalic.ttf') format('truetype');
     font-weight: bold;
     font-style: italic;
       }
 
 @font-face {
     font-family: 'Alegreya';
-        src: url('../fonts/AlegreyaBlack.ttf') format('truetype');
+        src: url('/fonts/Alegreya-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+      }
+
+@font-face {
+    font-family: 'Alegreya';
+        src: url('/fonts/Alegreya-BlackItalic.ttf') format('truetype');
+    font-weight: bold;
+    font-style: italic;
+      }
+
+@font-face {
+    font-family: 'Alegreya';
+        src: url('/fonts/Alegreya-Black.ttf') format('truetype');
     font-weight: bold;
     font-style: normal;
       }

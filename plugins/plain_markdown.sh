@@ -74,4 +74,5 @@ t_skf_gen () {
 }
 export staticlist="css/*.css
 img/*
+fonts/*
 "

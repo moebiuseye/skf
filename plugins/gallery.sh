@@ -128,4 +128,5 @@ $vMainMarkdown"
 }
 export staticlist="css/*.css
 img/*
+fonts/*
 "

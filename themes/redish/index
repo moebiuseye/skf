@@ -14,9 +14,6 @@ cat << EOF
     <meta charset='utf-8'>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width">
-    <link rel="stylesheet" media="screen" 
-        href="http://openfontlibrary.org/face/alegreya" 
-        rel="stylesheet" type="text/css"/>
 EOF
 
 generate_header_head
