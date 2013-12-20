@@ -50,13 +50,12 @@ then
     ls -- "$SHARE_DIR/themes/"
     read theme
     theme="${theme:-default}"
-    mkdir css
-    THEME_DIR="$SHARE_DIR/themes/${theme}"
-    if [[ -f "$THEME_DIR/style.css" ]]
+    THEME_DIR="$SHARE_DIR/themes/$theme"
+    if [[ -d "$THEME_DIR/data" ]]
     then
-        cp -- "$THEME_DIR/style.css" "css/style.css"
+        cp -R -- "$THEME_DIR/data/"* "./"
         printf '\nexport theme="%s"\n' "$theme" >> .skfrc
     else
-        echo "No such theme in $theme"
+        echo "No such theme directory $THEME_DIR"
     fi
 fi
