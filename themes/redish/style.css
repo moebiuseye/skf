@@ -1,0 +1,227 @@
+
+body {
+    padding: 0;
+    margin: 0;
+    
+    width: 100%;
+    background-color: #F7F7F7;
+    
+    font-family: 'Alegreya'; 
+    font-weight: normal; 
+    font-style: normal; 
+}
+
+
+.main>h1, .main>h2, .main>h3, .main>h4 {
+    color: #894446;
+    background-color: white;
+    
+    padding: 8px 10px;
+    text-shadow: 0 1px 0 white;
+    text-decoration: none;
+    
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.05) , -5px 0px #DDD inset;
+
+    background-clip: border-box;
+    border-top: #EEE 1px solid;
+    border-bottom: #EEE 1px solid;
+
+    margin: 5px 0;
+    margin-left: -7.2%;
+
+
+    font-style: italic;
+    
+    max-width: 90%;
+}
+
+body>div.index>ul * {
+    max-width: 40em;
+}
+
+body>ul>li>p>strong {
+    color: #894446;
+}
+
+
+// BEGIN END
+
+body {
+    padding: 0;
+    margin: 0;
+
+/*
+    height: 100%;
+*/
+    width: 100%;
+}
+
+a {
+    color: #2E3436;
+    text-decoration: none;
+    font-weight: bolder;
+}
+
+header{
+    text-align: center;
+    
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.05) , 0px -5px #894446 inset;
+    
+    padding-bottom: 13px;
+    padding-top: 8px;
+}
+header * {
+    padding: 0;
+}
+
+.headerTitle {
+    font-size: 1.5em;
+    display: inline;
+}
+
+.headerSubtitle {
+    color: lightgrey;
+    font-size: 1.5em;
+    display: inline;
+}
+
+.side {
+    background-color: #E7E7E7;
+    width: 20%;
+    position: absolute;
+    left: 0px;
+    min-height: 95%;
+    padding: 0 ;
+    font-size: 125%;
+}
+
+.side .left {
+    font-size: 150%;
+}
+
+.folderlist {
+    list-style: none;
+    list-style-type: none;
+    padding: 0px;
+    margin: 0px;
+    
+    width: 100%;
+    display: block;
+}
+
+.folderlist li {
+    background-color: white;
+
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.05) , 0px -2px #894446 inset;
+
+    padding: 0.35em 0;
+    padding-left: 2%;
+    min-width: 100%;
+    display: inline-block;
+    text-align: left;
+    font-size: 75%;
+}
+
+.side .left {
+    margin: 0.5em; 
+    bottom: 0;
+    font-size: 50%;
+}
+
+
+.main {
+    display: block;
+    border-left: 1px solid #EEE;
+
+
+    background-color: #F7F7F7;
+    position: relative;
+    min-height: 20em;
+    margin: 0 0 1em 20%;
+    padding: 1% 5% 3% 5%;
+    
+    box-shadow: 3px 0px 5px #DDD inset;
+}
+.main p {
+    text-align: justify;
+}
+.main * {
+    max-width: 100%;
+}
+.main blockquote {
+    box-shadow: 2px 0px #894446 inset;
+    padding-left: 10px;
+}
+
+article {
+    background-color: #E7E7E7;
+    margin: 3em;
+    padding: .5em 2% 2em 2%;
+}
+
+code {
+    max-width: 90%;
+    overflow-x: auto;
+    display: inline-block;
+    padding: 3px 5px;
+    background-color: #E7E7E7;
+}
+
+.bottom {
+    background-color: white;
+    font-size: 91%;
+    padding: 0.5em 2.5%;
+    width: 95%;
+    position:absolute; 
+    bottom: 0px;
+    text-align: right;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.05) , 0px 5px #894446 inset;
+/*
+    color: #111;
+*/
+}
+
+@media only screen and (max-width: 640px), only screen and (max-device-width: 800px) {
+    header {
+    }
+    .side {
+        width: 100%;
+        position: static; 
+    }
+    .folderlist li {
+        text-align: center;
+        padding: 0.5em 0;
+        padding-left: 0;
+        font-size: 150%;
+    }
+    
+    .side .left {
+        font-size: 125%;
+    }
+    
+    .main {
+        width: 95%;
+        padding: 1% 2.5% 3% 2.5%;
+        margin: 0 0 3em 0;
+        
+        font-size: 110%;
+    }
+    
+    .main h1, .main h2, .main h3, .main h4 {
+        margin-left: -2%;
+    }
+}
+
+@media only screen and (max-width: 480px), only screen and (max-device-width: 640px) {
+    .folderlist li {
+        font-size: 100%
+    }
+    .side .left {
+        font-size: 100%;
+    }
+    .main {
+        font-size: 100%;
+    }
+}
+
+// END END

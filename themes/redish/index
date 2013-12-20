@@ -1,0 +1,103 @@
+#!/usr/bin/env bash
+
+vTitle="${vTitle:-${title:-NoTitle}}"
+vSubTitle="${vSubTitle:-${subtitle:-NoSubtitle}}"
+
+vBaseUrl="${vBaseUrl:-${base_url:-/}}"
+
+vPlugin="${vPlugin:-${plugin:-Noplugin}}"
+
+cat << EOF 
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" media="screen" 
+        href="http://openfontlibrary.org/face/alegreya" 
+        rel="stylesheet" type="text/css"/>
+EOF
+
+generate_header_head
+
+cat << EOF
+    <title>$vTitle -- $vSubTitle </title>
+EOF
+for stylesheet in $vStylesheets
+do
+    cat << EOF 
+    <link rel="stylesheet" href="$stylesheet" type="text/css"> 
+EOF
+done
+
+generate_header_tail
+
+cat << EOF 
+</head>
+
+<body>
+    <header>
+        <h1 class="headerTitle"><a href='${vBaseUrl}index.html'>$vTitle</a></h1>
+        <span class="headerSubtitle">$vSubTitle</span>
+    </header>
+EOF
+
+cat << EOF
+<div class='container' style='height:100%; width:100%; position:relative;' >
+<div class='side'>
+EOF
+# Only have folderlist list if there are subfolders
+# NOTICE : dirty 
+[ -z "$vSubfolders" ] || (
+echo "    <ul class='folderlist'>"
+i=-1
+echo "$vSubfolders" | while read subfolder
+do
+    ((i+=1))
+    sftitle="$(echo "$vSubfolderTitle" | head -n $((i+1)) | tail -n 1 )"
+    [[ -z $sftitle ]] && continue
+    cat << EOF
+        <li><a href='$vUrl/$subfolder'>${sftitle:-$subfolder}</a></li>
+EOF
+done
+echo "    </ul>" 
+)
+
+
+cat << EOF
+    
+<div class='left'>
+EOF
+
+if [ -z "$vLeftMarkdown" ] 
+then
+    ( cat "$vLeftHtml" || echo "$vLeftHtml" ) 2> /dev/null
+else
+    ( cat "$vLeftMarkdown" || echo "$vLeftMarkdown" ) 2> /dev/null | markdown 
+fi
+
+cat << EOF
+</div><!-- class='left' -->
+</div><!-- class='side' -->
+</div><!-- class='container' -->
+
+<div class='main'>
+EOF
+
+if [ -z "$vMainMarkdown" ] 
+then
+    ( cat "$vMainHtml" || echo "$vMainHtml" ) 2> /dev/null
+else
+    ( cat "$vMainMarkdown" || echo "$vMainMarkdown" ) 2> /dev/null | markdown 
+fi
+
+cat << EOF
+</div><!-- class='main' -->
+
+    <div class='container' style='height:100%; width:100%; position:relative;' >
+        <div class='bottom'><small>powered by StatiKiss Framework ($vPlugin plugin)</small>
+    </div>
+</body>
+</html>
+EOF

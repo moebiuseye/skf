@@ -68,8 +68,8 @@ t_skf_gen () {
 
     vPlugin="$plugin"
     
-    echoerr "$SHARE_DIR/themes/default/index" ">" "$DST/index.html"
-    source "$SHARE_DIR/themes/default/index" > "$DST/index.html"
+    echoerr "$SHARE_DIR/themes/${theme:-default}/index" ">" "$DST/index.html"
+    source "$SHARE_DIR/themes/${theme:-default}/index" > "$DST/index.html"
     
 }
 export staticlist="css/*.css

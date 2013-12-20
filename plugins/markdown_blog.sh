@@ -49,7 +49,7 @@ t_markdown_blog_gen_rss () {
     
     blogposts=$(find $SRC/posts/*-*-*-*.md)
     
-    source $SHARE_DIR/themes/default/rss > "$DST/rss.xml"
+    source $SHARE_DIR/themes/${theme:-default}/rss > "$DST/rss.xml"
 }
 
 t_markdown_blog_gen_posts () {
@@ -86,7 +86,7 @@ t_markdown_blog_gen_posts () {
         touch -- "$bpHtmlFile"
         
         # generating blog post page
-        source $SHARE_DIR/themes/default/index > "$bpHtmlFile"
+        source $SHARE_DIR/themes/${theme:-default}/index > "$bpHtmlFile"
     done
 }
 
@@ -146,7 +146,7 @@ rss.xml")"
     vPlugin="$plugin"
     
     # generating main page
-    source $SHARE_DIR/themes/default/index > "$DST/index.html"
+    source $SHARE_DIR/themes/${theme:-default}/index > "$DST/index.html"
     
 }
 export staticlist="css/*.css

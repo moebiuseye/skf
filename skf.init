@@ -46,6 +46,17 @@ echo "Would you like to add the default css to this website? [y/n]"
 read response 
 if [ "${response:0:1}" == "y" ] 
 then 
+    echo "chose between the following themes:"
+    ls -- "$SHARE_DIR/themes/"
+    read theme
+    theme="${theme:-default}"
     mkdir css
-    cp $SHARE_DIR/themes/default/style.css css/style.css
+    THEME_DIR="$SHARE_DIR/themes/${theme}"
+    if [[ -f "$THEME_DIR/style.css" ]]
+    then
+        cp -- "$THEME_DIR/style.css" "css/style.css"
+        printf '\nexport theme="%s"\n' "$theme" >> .skfrc
+    else
+        echo "No such theme in $theme"
+    fi
 fi

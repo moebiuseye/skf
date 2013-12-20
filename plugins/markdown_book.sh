@@ -96,9 +96,9 @@ t_skf_gen () {
         vSubTitle=${vSubTitle:-$title}
         if [ $i -eq 0 ]
         then
-            source "$SHARE_DIR/themes/default/index" > "$DST/index.html"
+            source "$SHARE_DIR/themes/${theme:-default}/index" > "$DST/index.html"
         fi
-        source "$SHARE_DIR/themes/default/index" > "$DST/$mdfile.html"
+        source "$SHARE_DIR/themes/${theme:-default}/index" > "$DST/$mdfile.html"
         ((i+=1))
     done
 }

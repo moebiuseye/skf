@@ -115,10 +115,10 @@ $vMainMarkdown"
         if [ $n -eq 0 ]
         then
             touch -- "$DST/index.html"
-            source "$SHARE_DIR/themes/default/index" > "$DST/index.html"
+            source "$SHARE_DIR/themes/${theme:-default}/index" > "$DST/index.html"
         fi
         touch -- "$DST/$pagename.html"
-        source "$SHARE_DIR/themes/default/index" > "$DST/$pagename.html"
+        source "$SHARE_DIR/themes/${theme:-default}/index" > "$DST/$pagename.html"
         
         ((n+=1))
     done
