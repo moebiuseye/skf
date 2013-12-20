@@ -9,12 +9,12 @@ install:
 	echo $(DESTDIR)
 	
 	mkdir -p $(BIN_DIR)
-	cp -v ./skf* $(BIN_DIR)/
-	chmod -v +rx $(BIN_DIR)/skf 
-	chmod -v +rx $(BIN_DIR)/skf.gen
-	chmod -v +rx $(BIN_DIR)/skf.init
+	cp ./skf* $(BIN_DIR)/
+	chmod +rx $(BIN_DIR)/skf 
+	chmod +rx $(BIN_DIR)/skf.gen
+	chmod +rx $(BIN_DIR)/skf.init
 	
 	mkdir -p $(SHARE_DIR)/skf
-	cp -vR ./plugins $(SHARE_DIR)/skf/
-	cp -vR ./lib $(SHARE_DIR)/skf/
-	cp -vR ./themes $(SHARE_DIR)/skf/
+	cp -R ./plugins $(SHARE_DIR)/skf/
+	cp -R ./lib $(SHARE_DIR)/skf/
+	cp -R ./themes $(SHARE_DIR)/skf/
