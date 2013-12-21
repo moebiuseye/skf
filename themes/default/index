@@ -93,7 +93,10 @@ cat << EOF
 </div><!-- class='main' -->
 
     <div class='container' style='height:100%; width:100%; position:relative;' >
-        <div class='bottom'><small>powered by StatiKiss Framework ($vPlugin plugin, $theme theme)</small>
+        <div class='bottom'>
+            <small>powered by <a 
+                href='http://skf.jeannedhack.org/'>StatiKiss Framework</a> ($vPlugin plugin, ${theme:-custom} theme)
+            </small>
     </div>
 </body>
 </html>
