@@ -137,14 +137,11 @@ body {
     padding: 0;
     margin: 0;
 
-/*
-    height: 100%;
-*/
     width: 100%;
 }
 
 a {
-    color: #2E3436;
+    color: #692426;
     text-decoration: none;
     font-weight: bolder;
 }
@@ -295,7 +292,7 @@ code {
     }
     
     .main h1, .main h2, .main h3, .main h4 {
-        margin-left: -2%;
+        margin-left: -2.5%;
     }
 }
 
