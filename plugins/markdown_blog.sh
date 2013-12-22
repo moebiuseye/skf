@@ -137,8 +137,7 @@ t_skf_gen () {
     
     #vBaseUrl="$base_url"
     
-    vSubfolders="$(echo "$(list_subfolders)
-rss.xml")"
+    vSubfolders="$(printf "%s\nrss.xml" "$(list_subfolders)")"
     vSubfolderTitle="$(list_subfolder_titles)"
 
     vMainHtml="$(t_markdown_blog_gen_main)"

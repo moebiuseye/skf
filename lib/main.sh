@@ -21,10 +21,9 @@ list_subfolders () {
     do
         [ -z "$page" ] && continue
         [ -f "$page/.skfrc" ] || continue
-        page=${page#$SRC}
+        page="${page#$SRC}/"
         pagename=${page#/}
-        pagename=${pagename%/}
-        echo $pagename
+        printf "$pagename"
     done
 }
 
@@ -32,6 +31,7 @@ list_subfolder_titles () {
         echo "$vSubfolders" | while read subfolder
         do
             [ "$subfolder" == ".." ] && echo "$subfolder" && continue
+            subfolder="${subfolder%/}"
             subfolder="$(echo "$subfolder" | sed "s/\.[a-z]*$//")"
             subfolder="${subfolder#??_}"
             echo "$subfolder"
