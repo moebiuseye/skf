@@ -23,7 +23,7 @@ list_subfolders () {
         [ -f "$page/.skfrc" ] || continue
         page="${page#$SRC}/"
         pagename=${page#/}
-        printf "$pagename"
+        printf "$pagename\n"
     done
 }
 

@@ -6,6 +6,11 @@ t_skf_gen () {
     echo "to moebiuseye <moebiuseye@jeannedhack.org>"
     
     rm -rf "$DST"
-    cp -r -- "$SRC" "$DST"
+    if command -v rsync 2>&1 > /dev/null
+    then
+        rsync -a -- "$SRC" "$DST"
+    else
+        cp -r -- "$SRC" "$DST"
+    fi
     rm "$DST/.skfrc"
 }
