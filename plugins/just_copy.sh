@@ -8,9 +8,9 @@ t_skf_gen () {
     rm -rf "$DST"
     if command -v rsync 2>&1 > /dev/null
     then
-        rsync -a -- "$SRC/" "$DST"
+        rsync -rL -- "$SRC/" "$DST"
     else
-        cp -r -- "$SRC" "$DST"
+        cp -rL -- "$SRC" "$DST"
     fi
     rm "$DST/.skfrc"
 }
