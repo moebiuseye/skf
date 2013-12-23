@@ -149,7 +149,8 @@ a {
 header{
     text-align: center;
     
-    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.05) , 0px -5px #894446 inset;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.05);
+    border-bottom: 5px #894446 solid;
     
     padding-bottom: 13px;
     padding-top: 8px;
@@ -196,7 +197,8 @@ header * {
 .folderlist li {
     background-color: white;
 
-    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.05) , 0px -2px #894446 inset;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.05);
+    border-bottom: 2px #894446 solid;
 
     padding: 0.35em 0;
     padding-left: 2%;
@@ -224,7 +226,7 @@ header * {
     margin: 0 0 1em 20%;
     padding: 1% 5% 3% 5%;
     
-    box-shadow: 3px 0px 5px #DDD inset;
+    box-shadow: 3px 0px 5px #DDD solid;
 }
 .main p {
     text-align: justify;
@@ -233,7 +235,7 @@ header * {
     max-width: 100%;
 }
 .main blockquote {
-    box-shadow: 2px 0px #894446 inset;
+    box-shadow: 2px 0px #894446 solid;
     padding-left: 10px;
 }
 
@@ -260,6 +262,7 @@ code {
     bottom: 0px;
     text-align: right;
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.05) , 0px 5px #894446 inset;
+    border-top: 5px #894446 solid;
 /*
     color: #111;
 */
