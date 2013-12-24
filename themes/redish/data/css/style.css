@@ -227,7 +227,7 @@ header * {
     margin: 0 0 1em 20%;
     padding: 1% 5% 3% 5%;
     
-    box-shadow: 3px 0px 5px #DDD solid;
+    box-shadow: 3px 0px 5px #DDD inset;
 }
 .main p {
     text-align: justify;
@@ -236,7 +236,7 @@ header * {
     max-width: 100%;
 }
 .main blockquote {
-    box-shadow: 2px 0px #894446 solid;
+    box-shadow: 2px 0px #894446 inset;
     padding-left: 10px;
 }
 
