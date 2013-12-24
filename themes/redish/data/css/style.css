@@ -108,6 +108,7 @@ body {
     text-decoration: none;
     
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.05) , -5px 0px #DDD inset;
+    border-radius: 0px 3px 3px 0px;
 
     background-clip: border-box;
     border-top: #EEE 1px solid;
@@ -261,7 +262,7 @@ code {
     position:absolute; 
     bottom: 0px;
     text-align: right;
-    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.05) , 0px 5px #894446 inset;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.05);
     border-top: 5px #894446 solid;
 /*
     color: #111;
