@@ -48,9 +48,9 @@ cp_images () {
     mkdir -p -- "$DST/images"
     if command -v rsync 2>&1 > /dev/null
     then
-        rsync -a -- "$SRC/images/" "$DST/images"
+        rsync -r --copy-unsafe-links -- "$SRC/images/" "$DST/images"
     else
-        cp -- "$SRC/images/" "$DST/images"
+        cp -r -L -- "$SRC/images/" "$DST/images"
     fi
 }
 
@@ -84,6 +84,7 @@ t_skf_gen () {
         vMainMarkdown=""
         vSubTitle=""
         
+        # TODO : come up with another idea than readlink -m
         image="$(readlink -m "$image")"
         image="${image#$SRC}"
         imgname="${image%\.*}"

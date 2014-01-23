@@ -90,3 +90,15 @@ generate_header_tail () { generate_header tail ; }
 htmlentities () {
     sed 's/&/\&amp;/g; s/</\&lt;/g; s/>/\&gt;/g; s/"/\&quot;/g; s/'"'"'/\&#39;/g'
 }
+
+cp_tree () {
+    cp_src="$0"
+    cp_dst="$1"
+    mkdir -p -- "$(dirname $(dirname "$1"))"
+    if command -v rsync 2>&1 > /dev/null
+    then
+        rsync -r --copy-unsafe-links -- "$cp_src" "$cp_dst"
+    else
+        cp -r -L -- "$cp_src" "$cp_dst"
+    fi
+}

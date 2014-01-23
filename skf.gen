@@ -89,7 +89,7 @@ do
         tmp="${sf/$SRC/$DST/}"
         mkdir -p -- "${tmp%/*}"
         echoerr "cp" "$(readlink -f "$sf")" "${sf/$SRC/$DST/}"
-        cp -- "$(readlink -f "$sf")" "${sf/$SRC/$DST/}" 
+        cp_tree "$(readlink -f "$sf")" "${sf/$SRC/$DST/}" 
     done
 done
 

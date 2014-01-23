@@ -53,7 +53,7 @@ then
     THEME_DIR="$SHARE_DIR/themes/$theme"
     if [[ -d "$THEME_DIR/data" ]]
     then
-        cp -R -- "$THEME_DIR/data/"* "./"
+        cp -r -L -- "$THEME_DIR/data/"* "./"
         printf '\nexport theme="%s"\n' "$theme" >> .skfrc
     else
         echo "No such theme directory $THEME_DIR"
