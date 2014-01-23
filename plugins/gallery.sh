@@ -100,16 +100,19 @@ t_skf_gen () {
         fi
         
         vSubTitle="$pagename"
-        mdfile="${SRC}/images${pagename}.md"
+        mdfile="${SRC}/images/${pagename}.md"
+        echoerr "mdfile: $mdfile"
         if [[ -f "${mdfile}" ]]
         then
+            echoerr "mdfile $mdfile exists. Processing."
             vSubTitle=$((grep -E '^title:' | head -n 1) < "${mdfile}" )
             vSubTitle=${vSubTitle#title:}
             vMainMarkdown="$(tail -n +2 "${mdfile}" | sed -n "/^$/,$ p")"
         fi
         
+        imgurl="$(echo ${base_url}${image} | sed 's#//#/#g')"
         vMainMarkdown="$(echo "
-[![$imgname]("${base_url}${image}")](${base_url}${next})
+[![$imgname]($imgurl)](${base_url}${next})
 ")
 $vMainMarkdown"
 

@@ -92,8 +92,8 @@ htmlentities () {
 }
 
 cp_tree () {
-    cp_src="$0"
-    cp_dst="$1"
+    cp_src="$1"
+    cp_dst="$2"
     mkdir -p -- "$(dirname $(dirname "$1"))"
     if command -v rsync 2>&1 > /dev/null
     then
