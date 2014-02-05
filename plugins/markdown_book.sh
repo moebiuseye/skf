@@ -46,12 +46,10 @@
 
 list_chapters () {
     # Next ?
-    pages=$(find "$SRC"/* -maxdepth 0 -name "*.md" | grep -v -E "/left.md$" | while read dir
+    readarray -t pages< <(find "$SRC"/* -maxdepth 0 -name "*.md" | grep -v -E "/left.md$")
+    for key in ${!pages[@]}
     do
-        echo "$dir"
-    done)
-    echo "$pages" | while read page 
-    do
+        page="${pages[$key]}"
         [ -z "$page" ] && continue
         [ -f "$page" ] || continue
         page=${page#$SRC}

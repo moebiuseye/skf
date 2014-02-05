@@ -47,7 +47,7 @@ t_markdown_blog_gen_rss () {
     # preparing destintion
     touch -- "$DST/rss.xml"
     
-    blogposts=$(find $SRC/posts/*-*-*-*.md)
+    readarray -t blogposts< <(find $SRC/posts/*-*-*-*.md)
     
     source $SHARE_DIR/themes/${theme:-default}/rss > "$DST/rss.xml"
 }
@@ -57,8 +57,10 @@ t_markdown_blog_gen_posts () {
     mkdir -p -- "$DST/posts"
     
     local vUrl="$vUrl/posts"
-    find $SRC/posts/*-*-*-*.md | while read blogpost 
+    readarray blogposts< <(find $SRC/posts/*-*-*-*.md)
+    for key in ${!blogposts[@]}
     do
+        blogpost="${blogposts[$key]}"
         # setting variables
         vSubTitle=$((grep -E '^title:' | head -n 1) < $blogpost )
         vSubTitle=${vSubTitle#title:}
@@ -66,9 +68,10 @@ t_markdown_blog_gen_posts () {
         #vBaseUrl="$base_url"
         
         readarray -t vSubfolders < <(list_subfolders)
-        readarray -t vSubfolderTitle< <( 
-            echo "$vSubfolders" | while read subfolder
+        readarray -t vSubfolderTitle< <(
+            for key in ${!vSubfolders[@]}
             do
+                subfolder="${vSubfolders[$key]}"
                 [ "$subfolder" == ".." ] && echo "$subfolder" && continue
                 subfolder="$(echo "$subfolder" | sed "s/\.[a-z]*$//")"
                 subfolder="${subfolder#??_}"
@@ -92,8 +95,10 @@ t_markdown_blog_gen_posts () {
 
 t_markdown_blog_gen_main () {
 
-    find $SRC/posts/*-*-*-*.md | sort -r | while read blogpost 
+    readarray -t blogposts< <(find $SRC/posts/*-*-*-*.md | sort -r)
+    for key in ${!blogposts[@]}
     do
+        blogpost="${blogposts[$key]}"
         [ -f "$DST${blogpost#$SRC}.html" ] || echo "<small>article copy seems to have failed!</small>" 
         # Setting variables
         bpUrl=$(echo ${blogpost#$SRC_DIR})

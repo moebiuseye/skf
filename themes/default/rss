@@ -29,8 +29,9 @@ cat << EOF
 EOF
 
 blogpost=$(echo $blogpost | tac)
-for blogpost in $blogposts 
+for key in ${!blogposts[@]}
 do
+    blogpost="${blogposts[$key]}"
     bpUrl=$(echo ${blogpost#$SRC}.html )
     tmp=$(echo ${blogpost#$SRC/posts/} | tr "-" '\n')
     bpDate=($tmp)
