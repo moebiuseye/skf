@@ -73,19 +73,19 @@ t_skf_gen () {
     vUrl="${base_url%/}${DST#$DST_DIR}"
     #vBaseUrl="$base_url"
 
-    vStylesheets=("$(list_css_links)")
-    
-    vSubfolders="$(echo -e "$(list_subfolders)\n$(list_chapters)" | sort)"
-    
-    vSubfolderTitle="$(list_subfolder_titles)"
+    readarray -t vStylesheets< <(list_css_links)
+    readarray -t vSubfolders< <(printf "%s\n%s" "$(list_subfolders)" "$(list_chapters)" | grep -v -E '^$' | sort)
+    readarray -t vSubfolderTitle< <(list_subfolder_titles)
 
     vPlugin="$plugin"
 
     vLeftMarkdown="$([ -f "$SRC/left.md"  ] && echo "$SRC/left.md" )"
     
     i=0
-    find "$SRC" -maxdepth 1 -name "*.md" | grep -v -E "/left.md$" | sort | while read mdfile 
+    readarray -t mdfiles< <(find "$SRC" -maxdepth 1 -name "*.md" | grep -v -E "/left.md$" | sort)
+    for key in ${!mdfiles[@]}
     do
+        mdfile="${mdfiles[$key]}"
         mdfile="$(readlink -m "$mdfile")"
         mdfile="${mdfile#$SRC}"
         mdfile="${mdfile%\.md}"

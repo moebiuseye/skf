@@ -21,10 +21,10 @@ generate_header_head
 cat << EOF
     <title>$vTitle -- $vSubTitle </title>
 EOF
-for stylesheet in $vStylesheets
+for key in ${!vStylesheets[@]}
 do
     cat << EOF 
-    <link rel="stylesheet" href="$stylesheet" type="text/css"> 
+    <link rel="stylesheet" href="${vStylesheets[$key]}" type="text/css"> 
 EOF
 done
 
@@ -46,16 +46,17 @@ cat << EOF
 EOF
 # Only have folderlist list if there are subfolders
 # NOTICE : dirty 
-[ -z "$vSubfolders" ] || (
+[[ -z "${!vSubfolders[@]}" ]] || (
 echo "    <ul class='folderlist'>"
 i=-1
-echo "$vSubfolders" | while read subfolder
+for key in ${!vSubfolders[@]}
 do
     ((i+=1))
-    sftitle="$(echo "$vSubfolderTitle" | head -n $((i+1)) | tail -n 1 )"
+    sfolder="${vSubfolders[$key]}"
+    sftitle="${vSubfolderTitle[$key]}"
     [[ -z $sftitle ]] && continue
     cat << EOF
-        <li><a href='$vUrl/$subfolder'>${sftitle:-$subfolder}</a></li>
+        <li><a href='$vUrl/$sfolder'>${sftitle:-$sfolder}</a></li>
 EOF
 done
 echo "    </ul>" 

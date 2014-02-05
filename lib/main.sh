@@ -13,24 +13,24 @@ list_subfolders () {
     # Previous ? 
     [ "$SRC_DIR" == "$SRC" ] || echo ".."
     # Next ?
-    pages=$(find "$SRC"/* -maxdepth 0 -type d | while read dir
+    readarray -t pages< <(find "$SRC"/* -maxdepth 1 -type f -name '.skfrc' | sed 's#/\.skfrc$##' )
+    for key in ${!pages[@]}
     do
-        [ -f "$dir/.skfrc" ] && echo "$dir"
-    done)
-    echo "$pages" | while read page 
-    do
+        page="${pages[$key]}"
         [ -z "$page" ] && continue
         [ -f "$page/.skfrc" ] || continue
-        page="${page#$SRC}/"
+        page="${page#$SRC}"
         pagename=${page#/}
         printf "$pagename\n"
+        echoerr "pagename:$pagename"
     done
 }
 
 list_subfolder_titles () {
-        echo "$vSubfolders" | while read subfolder
+        for key in ${!vSubfolders[@]}
         do
-            [ "$subfolder" == ".." ] && echo "$subfolder" && continue
+            subfolder="${vSubfolders[$key]}"
+            [[ "$subfolder" == ".." ]] && echo "$subfolder" && continue
             subfolder="${subfolder%/}"
             subfolder="$(echo "$subfolder" | sed "s/\.[a-z]*$//")"
             subfolder="${subfolder#??_}"

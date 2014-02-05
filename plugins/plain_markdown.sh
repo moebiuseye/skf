@@ -57,11 +57,10 @@ t_skf_gen () {
     #vBaseUrl="$base_url"
 
     echoerr "STOP"
-    vStylesheets=("$(list_css_links)")
     
-    vSubfolders="$(list_subfolders)"
-    
-    vSubfolderTitle="$(list_subfolder_titles)"
+    readarray -t vStylesheets < <(list_css_links)
+    readarray -t vSubfolders < <(list_subfolders)
+    readarray -t vSubfolderTitle< <(list_subfolder_titles)
 
     vMainMarkdown="$([ -f "$SRC/index.md" ] && echo "$SRC/index.md" )"
     vLeftMarkdown="$([ -f "$SRC/left.md"  ] && echo "$SRC/left.md"  )"

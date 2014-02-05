@@ -65,8 +65,8 @@ t_markdown_blog_gen_posts () {
         
         #vBaseUrl="$base_url"
         
-        vSubfolders="$(list_subfolders)"
-        vSubfolderTitle="$( 
+        readarray -t vSubfolders < <(list_subfolders)
+        readarray -t vSubfolderTitle< <( 
             echo "$vSubfolders" | while read subfolder
             do
                 [ "$subfolder" == ".." ] && echo "$subfolder" && continue
@@ -75,7 +75,7 @@ t_markdown_blog_gen_posts () {
                 echo "$subfolder"
                 echoerr "subfolder:$subfolder"
             done
-        )"
+        )
 
         vMainMarkdown="$(tail -n +2 "$blogpost" | sed -n "/^$/,$ p" | markdown)"
 
@@ -122,9 +122,10 @@ t_skf_gen () {
     mkdir -p -- "$DST"
     touch -- "$DST/index.html"
     
-    export vLeftMarkdown="$([ -f "$SRC/left.md"  ] && echo "$SRC/left.md"  )"
+    export vLeftMarkdown="$([ -f "$SRC/left.md"  ] && echo "$SRC/left.md" )"
     export vUrl="${base_url%/}${DST#$DST_DIR}"
-    export vStylesheets=("$(list_css_links)")
+    export vStylesheets
+    readarray -t vStylesheets< <(list_css_links)
     
     # Generating the blog posts 
     t_markdown_blog_gen_posts
@@ -137,8 +138,8 @@ t_skf_gen () {
     
     #vBaseUrl="$base_url"
     
-    vSubfolders="$(printf "%s\nrss.xml" "$(list_subfolders)")"
-    vSubfolderTitle="$(list_subfolder_titles)"
+    readarray -t vSubfolders < <(printf "%s\nrss.xml" "$(list_subfolders)")
+    readarray -t vSubfolderTitle < <(list_subfolder_titles)
 
     vMainHtml="$(t_markdown_blog_gen_main)"
 

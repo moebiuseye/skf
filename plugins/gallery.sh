@@ -66,21 +66,20 @@ t_skf_gen () {
     vUrl="${base_url%/}${DST#$DST_DIR}"
     #vBaseUrl="$base_url"
 
-    vStylesheets=("$(list_css_links)")
-    
-    vSubfolders="$(echo -e "$(list_subfolders)" | sort)"
-    
-    vSubfolderTitle="$(list_subfolder_titles)"
+    readarray -t vStylesheets< <(list_css_links)
+    readarray -t vSubfolders< <(list_subfolders)
+    readarray -t vSubfolderTitle< <(list_subfolder_titles)
 
     vPlugin="$plugin"
 
     vLeftMarkdown="$([ -f "$SRC/left.md"  ] && echo "$SRC/left.md" )"
     
     n=0
-    imglist=($(find "$SRC/images" -maxdepth 1 | grep -E "(jpg|png|jpeg)$" | sort))
+    readarray -t imglist< <(find "$SRC/images" -maxdepth 1 | grep -E "(jpg|png|jpeg)$" | sort)
     
-    for image in ${imglist[@]}
+    for key in ${!imglist[@]}
     do
+        image="${imglist[$key]}"
         vMainMarkdown=""
         vSubTitle=""
         
