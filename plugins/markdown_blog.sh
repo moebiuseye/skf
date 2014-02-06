@@ -57,7 +57,7 @@ t_markdown_blog_gen_posts () {
     mkdir -p -- "$DST/posts"
     
     local vUrl="$vUrl/posts"
-    readarray blogposts< <(find $SRC/posts/*-*-*-*.md)
+    readarray -t blogposts< <(find $SRC/posts/*-*-*-*.md)
     for key in ${!blogposts[@]}
     do
         blogpost="${blogposts[$key]}"
