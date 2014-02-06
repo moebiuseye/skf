@@ -146,6 +146,7 @@ t_skf_gen () {
     readarray -t vSubfolders < <(printf "%s\nrss.xml" "$(list_subfolders)")
     readarray -t vSubfolderTitle < <(list_subfolder_titles)
 
+    unset vMainMarkdown
     vMainHtml="$(t_markdown_blog_gen_main)"
 
     vPlugin="$plugin"
