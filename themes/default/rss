@@ -28,7 +28,7 @@ cat << EOF
         <atom:link rel="self" href="$vUrl/rss.xml" />
 EOF
 
-blogpost=$(echo $blogpost | tac)
+blogpost=$(echo "$blogpost" | tac)
 for key in ${!blogposts[@]}
 do
     blogpost="${blogposts[$key]}"

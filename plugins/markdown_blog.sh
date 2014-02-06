@@ -138,8 +138,8 @@ t_skf_gen () {
     t_markdown_blog_gen_rss
     
     # Setting variables
-    #vTitle="$title"
-    #vSubTitle="$subtitle"
+    vTitle="$title"
+    vSubTitle="$subtitle"
     
     #vBaseUrl="$base_url"
     
