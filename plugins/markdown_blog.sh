@@ -134,12 +134,14 @@ t_skf_gen () {
     
     # Generating the blog posts 
     t_markdown_blog_gen_posts
-    # Generating the rss feed
-    t_markdown_blog_gen_rss
+    
     
     # Setting variables
     vTitle="$title"
     vSubTitle="$subtitle"
+    
+    # Generating the rss feed
+    t_markdown_blog_gen_rss
     
     #vBaseUrl="$base_url"
     
