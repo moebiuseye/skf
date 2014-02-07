@@ -15,6 +15,4 @@ install:
 	chmod +rx $(BIN_DIR)/skf.init
 	
 	mkdir -p $(SHARE_DIR)/skf
-	cp -R ./plugins $(SHARE_DIR)/skf/
-	cp -R ./lib $(SHARE_DIR)/skf/
-	cp -R ./themes $(SHARE_DIR)/skf/
+	cp -R ./share/ $(SHARE_DIR)/skf
