@@ -44,7 +44,7 @@ EOF
 
 echo "Would you like to add the default css to this website? [y/n]"
 read response 
-if [ "${response:0:1}" == "y" ] 
+if [[ ${response:0:1} -eq 'y' ]]
 then 
     echo "chose between the following themes:"
     ls -- "$SHARE_DIR/themes/"

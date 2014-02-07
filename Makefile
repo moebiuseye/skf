@@ -15,4 +15,4 @@ install:
 	chmod +rx $(BIN_DIR)/skf.init
 	
 	mkdir -p $(SHARE_DIR)/skf
-	cp -R ./share/ $(SHARE_DIR)/skf
+	cp -R ./share/* $(SHARE_DIR)/skf

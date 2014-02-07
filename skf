@@ -22,8 +22,10 @@
  
 export SHARE_DIR="/usr/share/skf"
 
-[ -d "$SHARE_DIR" ] || echo "Share directory does not exist. skf was not installed properly. "
-[ -d "$SHARE_DIR" ] || exit 1
+[[ -d $SHARE_DIR ]] || {
+    echo "Share directory does not exist. skf was not installed properly. "
+    exit 1 
+}
 
 HELP=\
 'skf [-f] [-r|--recursive] (--watch|-w) SRC_DIR DST_DIR          # "watch" mode
@@ -34,7 +36,7 @@ skf (-h|--help)                                                 # print help
 Warning: DST_DIR should be the last argument. '
 
 # Argument list cannot be empty 
-if [ -z "$@" ] 2> /dev/null
+if [[ -z $@ ]]
 then
     echo "$HELP"
     exit
@@ -42,12 +44,14 @@ fi
 
 while getopts "w:g:dhirf-:" arg
 do
-    if [ "$arg" == "-" ]
+    if [[ $arg == '-' ]]
     then
         arg="$OPTARG"
         CURARG="${!OPTIND}"
-        [[ ${CURARG:0:1} == '-' ]] || OPTARG="${!OPTIND}"
-        [[ ${CURARG:0:1} == '-' ]] || ((OPTIND+=1))
+        [[ ${CURARG:0:1} == '-' ]] || {
+            OPTARG="${!OPTIND}"
+            ((OPTIND+=1))
+        }
     fi
     
     case $arg in
@@ -92,7 +96,7 @@ for DST_DIR in $@ ; do : ; done
 export DST_DIR="$DST_DIR"
 
 # Making sure that last argument DST_DIR is not a switch
-if [ "${DST_DIR:0:1}" == "-" ]
+if [[ ${DST_DIR:0:1} == '-' ]]
 then 
     cat << EOF 
 The destination directory should be at the end. If your destination 
@@ -104,7 +108,7 @@ fi
 
 # Making sure that the source and the destination are
 # not the same directory. 
-if [ "$SRC_DIR" == "$DST_DIR" ] && [ -z "$FORCE" ]
+if [[ $SRC_DIR == $DST_DIR ]] && [[ -z $FORCE ]]
 then
     cat << EOF
 SRC_DIR and DST_DIR are the same directories. Use the -f (--force) flag to 
@@ -116,7 +120,7 @@ fi
 
 # Making sure that one and only one out of the -w and -g switches 
 # are used. 
-if [ -z "$WATCH" ] && [ -z "$GENERATE" ] || [ "$GENERATE" == "$WATCH" ]
+if [[ -z $WATCH ]] && [[ -z $GENERATE ]] || [[ $GENERATE == $WATCH ]]
 then
     echo "One and only one mode (-w or -g) is mandatory. "
     echo "$HELP"
@@ -142,8 +146,8 @@ trap control_c SIGINT
 skf.gen "$SRC_DIR" "$DST_DIR" &
 
 # Telling it to the user 
-[ -z "$GENERATE" ] || echo -n "generating your website..."
-[ -z "$WATCH" ]    || echo -n "watching changes..."
+[[ -z $GENERATE ]] || echo -n "generating your website..."
+[[ -z $WATCH ]]    || echo -n "watching changes..."
 
 # Waiting until all jobs are done 
 #wait $(jobs -p) 
