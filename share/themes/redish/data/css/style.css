@@ -131,9 +131,6 @@ body>ul>li>p>strong {
     color: #894446;
 }
 
-
-// BEGIN END
-
 body {
     padding: 0;
     margin: 0;
@@ -311,5 +308,3 @@ code {
         font-size: 100%;
     }
 }
-
-// END END

@@ -10,9 +10,7 @@ install:
 	
 	mkdir -p $(BIN_DIR)
 	cp ./skf* $(BIN_DIR)/
-	chmod +rx $(BIN_DIR)/skf 
-	chmod +rx $(BIN_DIR)/skf.gen
-	chmod +rx $(BIN_DIR)/skf.init
+	chmod +rx $(BIN_DIR)/skf*
 	
 	mkdir -p $(SHARE_DIR)/skf
 	cp -R ./share/* $(SHARE_DIR)/skf
