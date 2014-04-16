@@ -1,91 +1,3 @@
-
-@font-face {
-    font-family: 'Alegreya';
-        src: url('/fonts/Alegreya-Regular.otf') format('opentype');
-    font-weight: normal;
-    font-style: normal;
-      }
-
-@font-face {
-    font-family: 'Alegreya';
-        src: url('/fonts/Alegreya-Italic.otf') format('opentype');
-    font-weight: normal;
-    font-style: italic;
-      }
-
-@font-face {
-    font-family: 'Alegreya';
-        src: url('/fonts/Alegreya-BoldItalic.otf') format('opentype');
-    font-weight: bold;
-    font-style: italic;
-      }
-
-@font-face {
-    font-family: 'Alegreya';
-        src: url('/fonts/Alegreya-Bold.otf') format('opentype');
-    font-weight: bold;
-    font-style: normal;
-      }
-
-@font-face {
-    font-family: 'Alegreya';
-        src: url('/fonts/Alegreya-BlackItalic.otf') format('opentype');
-    font-weight: normal;
-    font-style: italic;
-      }
-
-@font-face {
-    font-family: 'Alegreya';
-        src: url('/fonts/Alegreya-Black.otf') format('opentype');
-    font-weight: normal;
-    font-style: normal;
-      }
-
-@font-face {
-    font-family: 'Alegreya';
-        src: url('/fonts/Alegreya-Regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-      }
-
-@font-face {
-    font-family: 'Alegreya';
-        src: url('/fonts/Alegreya-Italic.ttf') format('truetype');
-    font-weight: normal;
-    font-style: italic;
-      }
-
-@font-face {
-    font-family: 'Alegreya';
-        src: url('/fonts/Alegreya-BoldItalic.ttf') format('truetype');
-    font-weight: bold;
-    font-style: italic;
-      }
-
-@font-face {
-    font-family: 'Alegreya';
-        src: url('/fonts/Alegreya-Bold.ttf') format('truetype');
-    font-weight: bold;
-    font-style: normal;
-      }
-
-@font-face {
-    font-family: 'Alegreya';
-        src: url('/fonts/Alegreya-BlackItalic.ttf') format('truetype');
-    font-weight: bold;
-    font-style: italic;
-      }
-
-@font-face {
-    font-family: 'Alegreya';
-        src: url('/fonts/Alegreya-Black.ttf') format('truetype');
-    font-weight: bold;
-    font-style: normal;
-      }
-
-
-
-
 body {
     padding: 0;
     margin: 0;
@@ -93,7 +5,7 @@ body {
     width: 100%;
     background-color: #F7F7F7;
     
-    font-family: 'Alegreya'; 
+    font-family: 'Palatino';
     font-weight: normal; 
     font-style: normal; 
 }
