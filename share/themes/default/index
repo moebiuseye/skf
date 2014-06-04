@@ -4,8 +4,6 @@ vTitle="${vTitle:-${title:-NoTitle}}"
 vSubTitle="${vSubTitle:-${subtitle:-NoSubtitle}}"
 
 vBaseUrl="${vBaseUrl:-${base_url:-/}}"
-vBaseUrl="${vBaseUrl#http}"
-vBaseUrl="${vBaseUrl#s}"
 
 vPlugin="${vPlugin:-${plugin:-Noplugin}}"
 
