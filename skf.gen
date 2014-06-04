@@ -47,6 +47,7 @@ fi
 source "$SRC/.skfrc" 
 base_url="${base_url#http}"
 base_url="${base_url#s}"
+base_url="${base_url#:}"
 
 # loading specified plugin if present 
 if [ -f "$SHARE_DIR/plugins/$plugin.sh" ]
