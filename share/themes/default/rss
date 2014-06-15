@@ -24,8 +24,8 @@ echo "</description>"
 
 cat << EOF 
         <lastBuildDate>$(date -Rd "now" )</lastBuildDate>
-        <link>$vUrl</link>
-        <atom:link rel="self" href="$vUrl/rss.xml" />
+        <link>$scheme:$vUrl</link>
+        <atom:link rel="self" href="$scheme:$vUrl/rss.xml" />
 EOF
 
 blogpost=$(echo "$blogpost" | tac)
@@ -41,7 +41,7 @@ do
     
     bpTitle=$(head -n 1 $blogpost)
     bpTitle=${bpTitle#title:}
-    echoerr "blog post URL : $vUrl$bpUrl"
+    echoerr "blog post URL : $scheme:$vUrl$bpUrl"
     cat << EOF 
         <item>
             <title>$(echo $bpTitle | htmlentities )</title>
@@ -52,8 +52,8 @@ EOF
     cat << EOF
             </content:encoded>
             <pubDate>$(date -Rd "$bpYear-$bpMonth-$bpDay 00:00:00" )</pubDate>
-            <link>$vUrl$bpUrl</link>
-            <guid isPermaLink="true">$vUrl$bpUrl</guid>
+            <link>$scheme:$vUrl$bpUrl</link>
+            <guid isPermaLink="true">$scheme:$vUrl$bpUrl</guid>
         </item>
 EOF
 done

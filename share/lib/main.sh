@@ -13,7 +13,7 @@ list_subfolders () {
     # Previous ? 
     [ "$SRC_DIR" == "$SRC" ] || echo ".."
     # Next ?
-    readarray -t pages< <(find "$SRC"/* -maxdepth 1 -type f -name '.skfrc' | sed 's#/\.skfrc$##' )
+    readarray -t pages< <(find "$SRC"/* -maxdepth 1 -type f -name '.skfrc' -exec dirname '{}' \; )
     for key in ${!pages[@]}
     do
         page="${pages[$key]}"
