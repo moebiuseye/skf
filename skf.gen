@@ -46,8 +46,8 @@ fi
 # importing directory configuration file 
 source "$SRC/.skfrc" 
 
-export scheme="$(echo "$base_url" | grep -o  -E '^http(s?)')"
-export stripped_url="$(echo "$base_url" | sed "s/https?://")"
+export scheme="$(echo "$base_url" | grep -o -E '^http(s?)')"
+export stripped_url="$(echo "$base_url" | sed "s/$scheme://")"
 base_url="$stripped_url"
 
 # loading specified plugin if present 
