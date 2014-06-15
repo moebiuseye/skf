@@ -46,8 +46,8 @@ fi
 # importing directory configuration file 
 source "$SRC/.skfrc" 
 
-export scheme="$(echo "$base_url" | grep -o -E '^http(s?)')"
-export stripped_url="$(echo "$base_url" | sed "s/$scheme://")"
+[[ -z "$scheme" ]] && export scheme="$(echo "$base_url" | grep -o -E '^http(s?)')"
+export stripped_url="$(echo "$base_url" | sed "s/${scheme}://")"
 base_url="$stripped_url"
 
 # loading specified plugin if present 
@@ -123,7 +123,7 @@ do
     skf.gen "$websrc" "$webdst"
 done
 
-[ "$SRC" == "$SRC_DIR" ] &&  echo "Your website should be visible at ${base_url}index.html "
+[ "$SRC" == "$SRC_DIR" ] &&  echo "Your website should be visible at ${scheme}${base_url}index.html "
 
 
 [ -z "$WATCH" ] && exit 0
