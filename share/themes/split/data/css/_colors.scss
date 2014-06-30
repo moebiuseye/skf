@@ -1,0 +1,24 @@
+$bg-one: #B3B3B3;
+$bg-two: #515151;
+$bg-two: #666666;
+$bg-three: #B3B3B3;
+
+$bg-darker: #404040;
+
+$txt-one: $bg-three;
+$txt-two: $bg-three;
+$txt-three: $bg-one;
+
+$link-color: #006B99;
+$top-link-color: #0098D9;
+$top-link-color: ($link-color)+#505050;
+
+$fluffy-bg: url("/img/dark-stripes.png");
+
+$header-shadow: $bg-darker 0px -4px 3px -3px inset;
+
+/*
+$default-font: "Bodoni MT", Didot, "Didot LT STD", "Hoefler Text", Garamond, "Times New Roman", serif;
+*/
+
+$default-font: monospace;

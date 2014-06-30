@@ -1,0 +1,84 @@
+/*
+$default-font: "Bodoni MT", Didot, "Didot LT STD", "Hoefler Text", Garamond, "Times New Roman", serif;
+*/
+body, div, header, ul, ol {
+  text-decoration: none;
+  margin: 0;
+  padding: 0;
+  font-family: monospace; }
+
+body {
+  background-color: #b3b3b3; }
+
+a {
+  color: #006b99;
+  font-weight: bolder;
+  text-decoration: none; }
+
+div.top {
+  overflow: hidden;
+  display: table;
+  width: 100%; }
+  div.top header {
+    padding: 0 0 1em 1em;
+    background-color: #666666;
+    background-image: url("/img/dark-stripes.png");
+    color: #b3b3b3;
+    display: table-cell;
+    box-shadow: #404040 0px -4px 3px -3px inset; }
+    div.top header a {
+      color: #50bbe9; }
+  div.top div.side {
+    text-align: center;
+    display: table-cell;
+    vertical-align: top;
+    background-color: #b3b3b3;
+    min-height: 200px;
+    width: 35%; }
+    div.top div.side a {
+      color: #50bbe9; }
+    div.top div.side ul.folderlist li {
+      list-style: none; }
+      div.top div.side ul.folderlist li a {
+        display: block;
+        width: 100%;
+        background-color: #666666;
+        background-image: url("/img/dark-stripes.png");
+        box-shadow: #404040 0px -4px 3px -3px inset;
+        font-size: 105%;
+        padding: 0.4em; }
+    div.top div.side div.left {
+      background-color: #b3b3b3;
+      padding: 0.5em;
+      box-shadow: #404040 0px -4px 3px -3px inset;
+      min-height: 67px; }
+      div.top div.side div.left a {
+        color: #b3b3b3; }
+
+div.main {
+  background-color: white;
+  padding: 2em;
+  padding-top: 2.5em; }
+  div.main article {
+    padding: 1em;
+    padding-top: 0px;
+    margin: 0 -2em 0 -2em;
+    box-shadow: #404040 0px -4px 3px -3px inset; }
+  div.main p {
+    text-indent: 1em;
+    text-align: justify; }
+  div.main h1, div.main h2, div.main h3, div.main h4, div.main h5, div.main h6 {
+    font-weight: bolder; }
+  div.main blockquote {
+    box-shadow: 2px 0px #666666 inset;
+    padding-left: 10px;
+    text-align: justify;
+    color: #404040; }
+  div.main code {
+    background-color: #e3e3e3; }
+  div.main pre code {
+    display: block;
+    padding: 10px;
+    box-shadow: #404040 0px -4px 3px -3px inset; }
+  div.main hr {
+    border: 2px solid #666666; }

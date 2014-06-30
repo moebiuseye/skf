@@ -1,0 +1,115 @@
+@import "_colors";
+
+body, div, header, ul, ol {
+    text-decoration: none;
+    margin: 0;
+    padding: 0;
+    font-family: $default-font;
+}
+
+body {
+    background-color: $bg-one;
+}
+
+a {
+    color: $link-color;
+    font-weight: bolder;
+    text-decoration: none;
+}
+
+div.top {
+    overflow: hidden;
+    display: table;
+    width: 100%;
+    
+    header {
+        padding: 0 0 1em 1em;
+        background-color: $bg-two;
+        background-image: $fluffy-bg;
+        color: $txt-one;
+        display: table-cell;
+        box-shadow: $header-shadow;
+        a {
+            color: $top-link-color;
+        }
+    }
+    
+    div.side {
+        text-align: center;
+        display: table-cell;
+        vertical-align: top;
+        background-color: $bg-three;
+        min-height: 200px;
+        width: 35%;
+        
+        a {
+            color: $top-link-color;
+        }
+        ul.folderlist {
+            li {
+                list-style: none;
+                a {
+                    display: block;
+                    width: 100%;
+                    background-color: $bg-two;
+                    background-image: $fluffy-bg;
+                    box-shadow: $header-shadow;
+                    font-size: 105%;
+                    padding: 0.4em;
+                }
+            }
+        }
+        div.left {
+            background-color: $bg-three;
+            padding: 0.5em;
+            box-shadow: $header-shadow;
+            min-height: 67px;
+            a {
+                color: $txt-three;
+            }
+        }
+    }
+}
+
+div.main {
+    background-color: white;
+    padding: 2em;
+    padding-top: 2.5em;
+    
+    article {
+        padding: 1em;
+        padding-top: 0px;
+        margin: 0 -2em 0 -2em;
+        box-shadow: $header-shadow;
+    }
+    
+    p {
+        text-indent: 1em;
+        text-align: justify;
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+        font-weight: bolder;
+    }
+    
+    blockquote {
+        box-shadow: 2px 0px $bg-two inset;
+        padding-left: 10px;
+        text-align: justify;
+        color: $bg-darker;
+    }
+    
+    code {
+        background-color: ($bg-three)+#303030;
+    }
+    pre code {
+        display: block;
+        padding: 10px;
+        box-shadow: $header-shadow;
+    }
+    
+    hr {
+        border: 2px solid $bg-two;
+    }
+    
+}

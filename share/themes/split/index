@@ -42,7 +42,6 @@ cat << EOF
 EOF
 
 cat << EOF
-<div class='container' style='height:100%; width:100%; position:relative;'>
 <div class='side'>
 EOF
 # Only have folderlist list if there are subfolders
@@ -79,7 +78,6 @@ fi
 cat << EOF
 </div><!-- class='left' -->
 </div><!-- class='side' -->
-</div><!-- class='container' -->
 </div><!-- class='top' -->
 
 <div class='main'>
