@@ -44,10 +44,7 @@ else
 fi
 
 # importing directory configuration file
-source "$SRC/.skfrc" 
-base_url="${base_url#http}"
-base_url="${base_url#s}"
-base_url="${base_url#:}"
+source "$SRC/.skfrc"
 
 [[ -z "$scheme" ]] && export scheme="$(echo "$base_url" | grep -o -E '^http(s?)')"
 export stripped_url="$(echo "$base_url" | sed "s/${scheme}://")"
