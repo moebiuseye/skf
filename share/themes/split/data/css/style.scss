@@ -1,6 +1,6 @@
 @import "_colors";
 
-body, div, header, ul, ol {
+body, div, header, ul.folderlist {
     text-decoration: none;
     margin: 0;
     padding: 0;
@@ -40,7 +40,7 @@ div.top {
         vertical-align: top;
         background-color: $bg-three;
         min-height: 200px;
-        width: 35%;
+        min-width: 35%;
         
         a {
             color: $top-link-color;
@@ -73,14 +73,14 @@ div.top {
 
 div.main {
     background-color: white;
-    padding: 2em;
-    padding-top: 2.5em;
+    width: 96%;
+    padding: 1em 2% 1em 2%;
+    margin: 0 auto 0 auto;
+    box-shadow: $header-shadow;
     
     article {
         padding: 1em;
         padding-top: 0px;
-        margin: 0 -2em 0 -2em;
-        box-shadow: $header-shadow;
     }
     
     p {
@@ -111,5 +111,52 @@ div.main {
     hr {
         border: 2px solid $bg-two;
     }
+}
+
+div.bottom {
+    text-align: right;
+}
+
+/*
+ * BEGIN MOBILE STYLE
+ * */
+
+@media only screen and (max-width: 640px), only screen and (max-device-width: 800px) {
+    .side {
+    }
+    .folderlist li a {
+        font-size: 110%;
+        padding: 0.6em;
+    }
     
+    .side .left {
+        font-size: 110%;
+    }
+    
+    .main {
+        font-size: 110%;
+        
+        a {
+            padding: 4px;
+            margin: 2px;
+        }
+    }
+}
+
+@media only screen and (max-width: 480px), only screen and (max-device-width: 640px) {
+    .folderlist li a {
+        font-size: 100%;
+        padding: 0.6em;
+    }
+    .side .left {
+        font-size: 100%;
+    }
+    .main {
+        font-size: 100%;
+        
+        a {
+            padding: 4px;
+            margin: 2px;
+        }
+    }
 }
