@@ -79,9 +79,9 @@ t_markdown_blog_gen_posts () {
                 echoerr "subfolder:$subfolder"
             done
         )
-
-        vMainMarkdown="$(tail -n +2 "$blogpost" | sed -n "/^$/,$ p" | markdown)"
-
+        
+        vMainMarkdown="$(tail -n +2 "$blogpost" | sed -n "/^$/,$ p" )"
+        
         vPlugin="$plugin"
         
         # preparing destination 
@@ -115,7 +115,13 @@ t_markdown_blog_gen_main () {
         echo "<article>"
         echo "<h3><a href='${base_url%/}$bpUrl.html'>$bpTitle</a></h3>"
         echo "<small>$(date --date="$bpYear-$bpMonth-$bpDay 00:00:00" +'%x')</small>"
-        tail -n +2 "$blogpost" | sed -n "/^$/,$ p" | markdown
+        if [[ -z $excerpt ]]
+        then
+            tail -n +2 "$blogpost" | sed -n "/^$/,$ p" | markdown
+        else
+            tail -n +2 "$blogpost" | sed -n "/^$/,$ p" | head -n $excerpt | markdown
+            printf '…\n'
+        fi
         echo "</article>"
     done
     
