@@ -119,8 +119,8 @@ t_markdown_blog_gen_main () {
         then
             tail -n +2 "$blogpost" | sed -n "/^$/,$ p" | markdown
         else
-            tail -n +2 "$blogpost" | sed -n "/^$/,$ p" | head -n $excerpt | markdown
-            printf '…\n'
+            (tail -n +2 "$blogpost" | sed -n "/^$/,$ p" | head -n $excerpt ; grep -E '^\[.*\]: ' "$blogpost" ) | markdown
+            printf '…'
         fi
         echo "</article>"
     done
