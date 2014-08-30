@@ -47,7 +47,7 @@ t_markdown_blog_gen_rss () {
     # preparing destintion
     touch -- "$DST/rss.xml"
     
-    readarray -t blogposts< <(find $SRC/posts/*-*-*-*.md)
+    readarray -t blogposts< <(find "$SRC"/posts/*-*-*-*.md)
     
     source $SHARE_DIR/themes/${theme:-default}/rss > "$DST/rss.xml"
 }
@@ -56,8 +56,9 @@ t_markdown_blog_gen_posts () {
     # Preparing destination 
     mkdir -p -- "$DST/posts"
     
-    local vUrl="$vUrl/posts"
-    readarray -t blogposts< <(find $SRC/posts/*-*-*-*.md)
+    # ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ WTF WERE YOU THINKING ABOUT? 
+    #local vUrl="$vUrl/posts"
+    readarray -t blogposts< <(find "$SRC"/posts/*-*-*-*.md)
     for key in ${!blogposts[@]}
     do
         blogpost="${blogposts[$key]}"
@@ -65,15 +66,24 @@ t_markdown_blog_gen_posts () {
         vSubTitle=$((grep -E '^title:' | head -n 1) < $blogpost )
         vSubTitle=${vSubTitle#title:}
         
-        #vBaseUrl="$base_url"
-        
-        readarray -t vSubfolders < <(list_subfolders)
+        echoerr BLOG SRC SRC_DIR "$SRC $SRC_DIR" 
+        if [[ "$SRC" == "$SRC_DIR" ]]
+        then
+            readarray -t vSubfolders < <(echo 'index.html' ; list_subfolders)
+        else
+            readarray -t vSubfolders < <(list_subfolders)
+            vSubfolders[0]='index.html' # This may not work everywhere. 
+        fi
+        echoerr blog vSubfolders "${vSubfolders[@]}"
         readarray -t vSubfolderTitle< <(
             for key in ${!vSubfolders[@]}
             do
                 subfolder="${vSubfolders[$key]}"
-                [ "$subfolder" == ".." ] && echo "$subfolder" && continue
-                subfolder="$(echo "$subfolder" | sed "s/\.[a-z]*$//")"
+                echoerr blog subfolder "$subfolder"
+                [ "$subfolder" == 'index.html' ] && echo '..' && continue
+                subfolder="${subfolder%/index.html}"
+                subfolder="${subfolder%/}"
+                subfolder="$(printf '%s\n' "$subfolder" | sed 's/\.[a-z]\{1,\}$//')"
                 subfolder="${subfolder#??_}"
                 echo "$subfolder"
                 echoerr "subfolder:$subfolder"
@@ -95,7 +105,7 @@ t_markdown_blog_gen_posts () {
 
 t_markdown_blog_gen_main () {
 
-    readarray -t blogposts< <(find $SRC/posts/*-*-*-*.md | sort -r)
+    readarray -t blogposts< <(find "$SRC"/posts/*-*-*-*.md | sort -r)
     for key in ${!blogposts[@]}
     do
         blogpost="${blogposts[$key]}"
@@ -108,14 +118,14 @@ t_markdown_blog_gen_main () {
         bpMonth=${bpDate[1]}
         bpDay=${bpDate[2]}
         
-        bpTitle=$(head -n 1 $blogpost)
+        bpTitle=$(head -n 1 "$blogpost")
         bpTitle=${bpTitle#title:}
         
         # Echoing some html
         echo "<article>"
         echo "<h3><a href='${base_url%/}$bpUrl.html'>$bpTitle</a></h3>"
         echo "<small>$(date --date="$bpYear-$bpMonth-$bpDay 00:00:00" +'%x')</small>"
-        if [[ -z $excerpt ]]
+        if [[ -z "$excerpt" ]]
         then
             tail -n +2 "$blogpost" | sed -n "/^$/,$ p" | markdown
         else

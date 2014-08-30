@@ -56,6 +56,6 @@ then
         cp -r -L -- "$THEME_DIR/data/"* "./"
         printf '\nexport theme="%s"\n' "$theme" >> .skfrc
     else
-        echo "No such theme directory $THEME_DIR"
+        printf 'No such theme directory %s' "$THEME_DIR"
     fi
 fi

@@ -96,9 +96,9 @@ t_git_repo_gen () {
             do
                 subfolder="${vSubfolders[$key]}"
                 [ "$subfolder" == ".." ] && echo "$subfolder" && continue
-                subfolder="$(echo "$subfolder" | sed "s/\.[a-z]*$//")"
+                subfolder="$(echo "$subfolder" | sed 's/\.[a-z]\{1,\}$//')"
                 subfolder="${subfolder#??_}"
-                echo "$subfolder"
+                printf "%s\n" "$subfolder"
                 echoerr "subfolder:$subfolder"
             done
         )

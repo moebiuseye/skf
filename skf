@@ -73,7 +73,7 @@ do
         "w"|"watch" )
             export WATCH=1
             export SRC_DIR="$(readlink -m "${OPTARG}" )" 
-            ;; 
+            ;;
             
         "g"|"generate" )
             export GENERATE=1
@@ -92,7 +92,7 @@ done
 
 
 # Get last argument (DST_DIR)
-for DST_DIR in $@ ; do : ; done
+for DST_DIR ; do : ; done
 export DST_DIR="$DST_DIR"
 
 # Making sure that last argument DST_DIR is not a switch

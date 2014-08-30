@@ -73,7 +73,7 @@ get_staticfiles () {
     else 
         if ! [ -z "$staticlist" ]
         then
-            echo -e "$staticlist"  | echo_them 
+            printf "%s" "$staticlist"  | echo_them 
         else
             echoerr "Static files are not defined. "
             echoerr "Will not copy anything. "
@@ -84,11 +84,12 @@ get_staticfiles () {
 
 staticfiles="$(get_staticfiles)"
 unset get_staticfiles
+echoerr staticfiles "$staticfiles"
 
 # Copying every static file into destination. 
 [ -z "$staticfiles" ] || echo "$staticfiles" | while read staticfile 
 do 
-    find $staticfile 2> /dev/null | while read sf 
+    find "$SRC" -wholename "$staticfile" 2> /dev/null | while read sf 
     do
         [ -z "$sf" ] && continue
         tmp="${sf/$SRC/$DST/}"
@@ -109,20 +110,20 @@ t_skf_gen
 [ -z "$RECURSIVE" ] && exit 0
 
 
-WEBSITES=$(find "$SRC"/*  -maxdepth 0 -type d | while read dir
-do
-    [ -f "$dir/.skfrc" ] && echo "$dir"
-done)
+readarray -t WEBSITES < <(find "$SRC"/*  -maxdepth 0 -type d -exec cp '{}'/.skfrc /dev/null \; -print 2> /dev/null )
 
-echoerr "$WEBSITES"
-echo "$WEBSITES" | while read websrc
+echoerr "${!WEBSITES[@]}"
+for k in ${!WEBSITES[@]}
 do
+    websrc="${WEBSITES[$k]}"
     [ -d "$websrc" ] || exit
     [ -z "$websrc" ] && exit
     webdst="$(readlink -m "$DST_DIR${websrc#$SRC_DIR}")"
     echoerr "webdst:$webdst"
     skf.gen "$websrc" "$webdst"
 done
+unset k
+unset websrc
 
 [ "$SRC" == "$SRC_DIR" ] &&  echo "Your website should be visible at ${scheme}${base_url}index.html "
 

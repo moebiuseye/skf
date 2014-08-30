@@ -10,10 +10,16 @@ fi
 export -f echoerr
 
 list_subfolders () {
+    local key
+    local page
+    local pagename
+    local pages
     # Previous ? 
-    [ "$SRC_DIR" == "$SRC" ] || echo ".."
+    [ "$SRC_DIR" == "$SRC" ] || echo "../index.html"
     # Next ?
-    readarray -t pages< <(find "$SRC"/* -maxdepth 1 -type f -name '.skfrc' -exec dirname '{}' \; )
+    readarray -t pages< \
+        <(find "$SRC"/* -maxdepth 1 \
+            -type f -name '.skfrc' -exec dirname '{}' \; )
     for key in ${!pages[@]}
     do
         page="${pages[$key]}"
@@ -21,54 +27,69 @@ list_subfolders () {
         [ -f "$page/.skfrc" ] || continue
         page="${page#$SRC}"
         pagename=${page#/}
-        printf "$pagename\n"
+        printf '%s/index.html\n' "$pagename"
         echoerr "pagename:$pagename"
     done
 }
 
 list_subfolder_titles () {
-        for key in ${!vSubfolders[@]}
-        do
-            subfolder="${vSubfolders[$key]}"
-            [[ "$subfolder" == ".." ]] && echo "$subfolder" && continue
-            subfolder="${subfolder%/}"
-            subfolder="$(echo "$subfolder" | sed "s/\.[a-z]*$//")"
-            subfolder="${subfolder#??_}"
-            echo "$subfolder"
-            echoerr "subfolder:$subfolder"
-        done
+    local key
+    local subfolder
+    for key in ${!vSubfolders[@]}
+    do
+        subfolder="${vSubfolders[$key]}"
+        [[ "$subfolder" == "../index.html" ]] && echo ".." && continue
+        subfolder="${subfolder%/index.html}"
+        subfolder="${subfolder%/}"
+        subfolder="$(printf '%s\n' "$subfolder" | sed 's/\.[a-z]\{1,\}$//')"
+        subfolder="${subfolder#??_}"
+        echo "$subfolder"
+        echoerr "subfolder:$subfolder"
+    done
 }
 
 # Will be replaced by "generate_header_links"
 list_css_links () {
-    if [ "$style_inherit" == "true" ]  && [ "$DST" != "$DST_DIR" ]
+    local dirlist
+    local CURR_DIR
+    if [ "$style_inherit" == "true" ] && [ "$DST" != "$DST_DIR" ]
     then
         CURR_DIR="${DST#$DST_DIR}"
-        echoerr "CURR_DIR:$CURR_DIR"
-        dirlist="$(while [ "$CURR_DIR" != "" ]
-        do
-            
-            echo "$DST_DIR$CURR_DIR"
-            
-            CURR_DIR=$(readlink -f "$DST_DIR/$CURR_DIR/..")
-            CURR_DIR="${CURR_DIR#$DST_DIR}"
-            
-        done | tac )"
-        dirlist=("$DST_DIR $dirlist")
+        echoerr CURR_DIR "$CURR_DIR"
+        readarray -t dirlist < <(
+            {
+            while [ "$CURR_DIR" != "" ]
+            do
+                echo "$DST_DIR$CURR_DIR"
+                
+                CURR_DIR=$(readlink -f "$DST_DIR/$CURR_DIR/..")
+                CURR_DIR="${CURR_DIR#$DST_DIR}"
+            done ; echo "$DST_DIR" ; 
+            } | tac
+        )
     else
         dirlist="$DST"
     fi
-
-    for dir in $dirlist
+    
+    local k
+    local l
+    local dir
+    local cssfiles
+    local cssfile
+    for k in ${!dirlist[@]]}
     do
-        dir=$(readlink -f "$dir")
+        dir=$(readlink -f "${dirlist[$k]}")
+        echoerr dir "$dir"
         [ -d "$dir/css" ] || continue
-        find "$dir/css/"* -name "*.css" 2> /dev/null |\
-        while read cssfile
+        readarray -t cssfiles < <(find "$dir/css/" -name "*.css" 2> /dev/null )
+        echoerr cssfiles "${!cssfiles[@]}"
+        echoerr cssfile0 "${cssfiles[0]}"
+        for l in ${!cssfiles[@]}
         do 
-            cssfile=$(readlink -f "$cssfile")
+            cssfile=$(readlink -f "${cssfiles[$l]}")
             cssfile="${cssfile#$DST_DIR}"
             cssfile="${cssfile#/}"
+            echoerr CSSURL "$base_url$cssfile"
             echo "$base_url$cssfile"
         done
     done
@@ -92,9 +113,9 @@ htmlentities () {
 }
 
 cp_tree () {
-    cp_src="$1"
-    cp_dst="$2"
-    mkdir -p -- "$(dirname $(dirname "$1"))"
+    local cp_src="$1"
+    local cp_dst="$2"
+    mkdir -p -- "$(dirname $(dirname "$cp_src"))"
     if command -v rsync 2>&1 > /dev/null
     then
         rsync -r --copy-unsafe-links -- "$cp_src" "$cp_dst"
