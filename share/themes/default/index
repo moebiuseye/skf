@@ -14,7 +14,7 @@ cat << EOF
     <meta charset='utf-8'>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width">
-    <!-- TODO : add a baseurl (using \$vBaseUrl) -->
+    <base href="$vBaseUrl"></base>
 EOF
 
 generate_header_head
@@ -51,14 +51,12 @@ for key in ${!vSubfolders[@]}
 do
     ((i+=1))
     sfolder="${vSubfolders[$key]}"
-    #sftitle="${vSubfolderTitle[$key]%/index}"
     sftitle="${vSubfolderTitle[$key]}"
     [[ -z $sftitle ]] && continue
     printf '<li><a href="%s">%s</a></li>' "${vUrl}/${sfolder}" "${sftitle:-$sfolder}"
 done
 echo "    </ul>" 
 )
-
 
 printf '<div class="left">'
 

@@ -14,23 +14,20 @@ cat << EOF
     <meta charset='utf-8'>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width">
+    <base href="$vBaseUrl"></base>
 EOF
 
 generate_header_head
 
-cat << EOF
-    <title>$vTitle -- $vSubTitle </title>
-EOF
+printf '<title>%s -- %s </title>' "$vTitle" "$vSubTitles"
 for key in ${!vStylesheets[@]}
 do
-    cat << EOF 
-    <link rel="stylesheet" href="${vStylesheets[$key]}" type="text/css"> 
-EOF
+    printf '<link rel="stylesheet" href="%s" type="text/css">' "${vStylesheets[$key]}"
 done
 
 generate_header_tail
 
-cat << EOF 
+cat << EOF
 </head>
 
 <body>
@@ -47,7 +44,7 @@ EOF
 # Only have folderlist list if there are subfolders
 # NOTICE : dirty 
 [[ -z "${!vSubfolders[@]}" ]] || (
-echo "    <ul class='folderlist'>"
+printf '<ul class="folderlist">'
 i=-1
 for key in ${!vSubfolders[@]}
 do
@@ -55,24 +52,18 @@ do
     sfolder="${vSubfolders[$key]}"
     sftitle="${vSubfolderTitle[$key]}"
     [[ -z $sftitle ]] && continue
-    cat << EOF
-        <li><a href='$vUrl/$sfolder'>${sftitle:-$sfolder}</a></li>
-EOF
+    printf '<li><a href="%s">%s</a></li>' "${vUrl}/${sfolder}" "${sftitle:-$sfolder}"
 done
 echo "    </ul>" 
 )
 
-
-cat << EOF
-    
-<div class='left'>
-EOF
+printf '<div class="left">'
 
 if [ -z "$vLeftMarkdown" ] 
 then
-    ( cat "$vLeftHtml" || echo "$vLeftHtml" ) 2> /dev/null
+    ( cat "$vLeftHtml" || printf "$vLeftHtml" ) 2> /dev/null
 else
-    ( cat "$vLeftMarkdown" || echo "$vLeftMarkdown" ) 2> /dev/null | markdown 
+    ( cat "$vLeftMarkdown" || printf "$vLeftMarkdown" ) 2> /dev/null | markdown 
 fi
 
 cat << EOF
@@ -93,13 +84,14 @@ fi
 cat << EOF
 </div><!-- class='main' -->
 
-    <div class='container' style='height:100%; width:100%; position:relative;' >
-        <div class='bottom'>
-            <small>powered by <a 
-                href='http://skf.jeannedhack.org/'>StatiKiss Framework</a> ($vPlugin plugin, ${theme:-custom} theme)
-            </small>
-        </div><!-- class='bottom' -->
-    </div><!-- class='container' -->
+<div class='container' style='height:100%; width:100%; position:relative;' >
+    <div class='bottom'>
+        <small>powered by <a 
+            href='http://skf.jeannedhack.org/'>StatiKiss Framework</a> ($vPlugin plugin, ${theme:-custom} theme)
+        </small>
+    </div><!-- class='bottom' -->
+</div><!-- class='container' -->
+
 </body>
 </html>
 EOF

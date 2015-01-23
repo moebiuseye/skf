@@ -109,7 +109,7 @@ t_skf_gen () {
             vMainMarkdown="$(tail -n +2 "${mdfile}" | sed -n "/^$/,$ p")"
         fi
         
-        imgurl="$(echo ${base_url}${image} | sed 's#//#/#g')"
+        imgurl="$(echo ${base_url}${image} | sed 's#/*#/#g')"
         vMainMarkdown="$(echo "
 [![$imgname]($imgurl)](${base_url}${next})
 ")

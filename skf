@@ -22,6 +22,19 @@
  
 export SHARE_DIR="/usr/share/skf"
 
+DEPS=(
+    skf.gen
+    markdown
+    tree
+    cp
+)
+
+for k in ${!DEPS[@]}
+do
+    DEP="${DEPS[$k]}"
+    command -v "$DEP" > /dev/null || { echo "Dépendance manquante: $DEP !" ; exit 1 ; }
+done
+
 [[ -d $SHARE_DIR ]] || {
     echo "Share directory does not exist. skf was not installed properly. "
     exit 1 
