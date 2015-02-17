@@ -25,26 +25,29 @@ do
     printf '<link rel="stylesheet" href="%s" type="text/css">' "${vStylesheets[$key]}"
 done
 
+printf '<script src="%sjs/jquery.min.js" type="text/javascript"></script>' "${vBaseUrl}"
+printf '<script src="%sjs/bootstrap.min.js" type="text/javascript"></script>' "${vBaseUrl}"
+
 generate_header_tail
 
 cat << EOF
 </head>
 
 <body>
-    <div class="top">
-        <header>
-            <h1 class="headerTitle"><a href='${vBaseUrl}index.html'>$vTitle</a></h1>
-            <span class="headerSubtitle">$vSubTitle</span>
-        </header>
-EOF
+<div class="wrap">
+<nav class="navbar navbar-default">
+    <div class="container-fluid"><div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            </button>
+                <a class="navbar-brand" href='${vBaseUrl}index.html'>$vTitle -- $vSubTitle</a>
+    </div>
 
-cat << EOF
-<div class='side'>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 EOF
 # Only have folderlist list if there are subfolders
 # NOTICE : dirty 
 [[ -z "${!vSubfolders[@]}" ]] || (
-printf '<ul class="folderlist">'
+printf '<ul class="nav navbar-nav">'
 i=-1
 for key in ${!vSubfolders[@]}
 do
@@ -54,10 +57,20 @@ do
     [[ -z $sftitle ]] && continue
     printf '<li><a href="%s">%s</a></li>' "${vUrl}/${sfolder}" "${sftitle:-$sfolder}"
 done
-echo "    </ul>" 
+echo '</ul>'
 )
 
-printf '<div class="left">'
+
+cat << EOF
+</div><!-- class='side' -->
+</div><!-- class='container' -->
+</nav><!-- class='navbar' -->
+
+
+<div class='container'>
+EOF
+
+printf '<div class="page-header">'
 
 if [ -z "$vLeftMarkdown" ] 
 then
@@ -68,10 +81,6 @@ fi
 
 cat << EOF
 </div><!-- class='left' -->
-</div><!-- class='side' -->
-</div><!-- class='top' -->
-
-<div class='main'>
 EOF
 
 if [ -z "$vMainMarkdown" ] 
@@ -82,16 +91,18 @@ else
 fi
 
 cat << EOF
-</div><!-- class='main' -->
-
-<div class='container' style='height:100%; width:100%; position:relative;' >
-    <div class='bottom'>
-        <small>powered by <a 
-            href='http://skf.jeannedhack.org/'>StatiKiss Framework</a> ($vPlugin plugin, ${theme:-custom} theme)
-        </small>
-    </div><!-- class='bottom' -->
 </div><!-- class='container' -->
 
+<div id='push' style='height: 60px;'></div>
+<div id='footer' style='height: 60px; background-color: rgb(245, 245, 245);'>
+    <div class='container' style='padding-top: 60px;'>
+    <small>powered by <a 
+        href='http://skf.jeannedhack.org/'>StatiKiss Framework</a> ($vPlugin plugin, ${theme:-custom} theme)
+    </small>
+    </div>
+</div><!-- class='footer' -->
+
+</div><!-- class='wrap' -->
 </body>
 </html>
 EOF

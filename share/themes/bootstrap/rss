@@ -1,0 +1,66 @@
+#!/bin/bash
+
+vTitle=$(echo "${vTitle:-${title:-NoTitle}}" | htmlentities )
+vSubTitle=$(echo "${vSubTitle:-${subtitle:-NoSubtitle}}" | htmlentities )
+
+cat << EOF 
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+     xmlns:content="http://purl.org/rss/1.0/modules/content/"
+     xmlns:atom="http://www.w3.org/2005/Atom"
+    >
+    <channel>
+      <title>$vTitle -- $vSubTitle</title>
+EOF
+
+echo -n "      <description>"
+if [ -z "$vLeftMarkdown" ] 
+then
+    ( cat "$vLeftHtml" || echo -n "$vLeftHtml" ) 2> /dev/null
+else
+    ( cat "$vLeftMarkdown" || echo -n "$vLeftMarkdown" ) 2> /dev/null | markdown 
+fi  | htmlentities 
+echo "</description>"
+
+cat << EOF 
+        <lastBuildDate>$(date -Rd "now" )</lastBuildDate>
+        <link>${scheme}:$vUrl</link>
+        <atom:link rel="self" href="${scheme}:$vUrl/rss.xml" />
+EOF
+
+blogpost=$(echo "$blogpost" | tac)
+for key in ${!blogposts[@]}
+do
+    blogpost="${blogposts[$key]}"
+    bpUrl=$(echo ${blogpost#$SRC}.html )
+    tmp=$(echo ${blogpost#$SRC/posts/} | tr "-" '\n')
+    bpDate=($tmp)
+    bpYear=${bpDate[0]}
+    bpMonth=${bpDate[1]}
+    bpDay=${bpDate[2]}
+    
+    bpTitle=$(head -n 1 "$blogpost")
+    bpTitle=${bpTitle#title:}
+    echoerr "blog post URL : ${scheme}:$vUrl$bpUrl"
+    cat << EOF 
+        <item>
+            <title>$(echo $bpTitle | htmlentities )</title>
+            <description></description>
+            <content:encoded>
+EOF
+    tail -n +2 "$blogpost" | sed -n "/^$/,$ p" | markdown | htmlentities 
+    cat << EOF
+            </content:encoded>
+            <pubDate>$(date -Rd "$bpYear-$bpMonth-$bpDay 00:00:00" )</pubDate>
+            <link>${scheme}:$vUrl$bpUrl</link>
+            <guid isPermaLink="true">${scheme}:$vUrl$bpUrl</guid>
+        </item>
+EOF
+done
+
+
+
+cat << EOF
+    </channel>
+</rss>
+EOF
