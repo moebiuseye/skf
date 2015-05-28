@@ -19,7 +19,7 @@ EOF
 
 generate_header_head
 
-generate_header
+generate_header_middle
 printf '<script src="%sjs/jquery.min.js" type="text/javascript"></script>' "${vBaseUrl}"
 printf '<script src="%sjs/bootstrap.min.js" type="text/javascript"></script>' "${vBaseUrl}"
 
