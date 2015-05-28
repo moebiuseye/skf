@@ -95,6 +95,9 @@ list_css_links () {
     done
 }
 
+# This means you can have a header.head or header.tail file
+#    directory, and it will be added to the head of your 
+# You can also have a "header." file. 
 generate_header () {
     i=0
     folder="$SRC"
@@ -104,6 +107,14 @@ generate_header () {
         [ "$folder" == "$SRC_DIR" ] && break
         folder="$(readlink -f "$folder/..")"
     done
+}
+generate_header_middle () {
+    printf '<title>%s -- %s </title>' "$vTitle" "$vSubTitle"
+    for key in ${!vStylesheets[@]}
+    do
+        printf '<link rel="stylesheet" href="%s" type="text/css">' "${vStylesheets[$key]}"
+    done
+    generate_header
 }
 generate_header_head () { generate_header head ; }
 generate_header_tail () { generate_header tail ; }
@@ -123,3 +134,24 @@ cp_tree () {
         cp -r -L -- "$cp_src" "$cp_dst"
     fi
 }
+
+main_markdown () {
+    if [ -z "$vMainMarkdown" ] 
+    then
+        ( cat "$vMainHtml" || echo "$vMainHtml" ) 2> /dev/null
+    else
+        ( cat "$vMainMarkdown" || echo "$vMainMarkdown" ) 2> /dev/null | markdown 
+    fi
+}
+main_markdown_do () {
+    i=0
+    folder="$SRC"
+    while [ $((i+=1)) -lt 100 ]
+    do
+        [ -f "$folder/markdown.${1}" ] && cat "$folder/markdown.${1}"
+        [ "$folder" == "$SRC_DIR" ] && break
+        folder="$(readlink -f "$folder/..")"
+    done
+}
+main_markdown_head () { main_markdown_do head }
+main_markdown_tail () { main_markdown_do tail }

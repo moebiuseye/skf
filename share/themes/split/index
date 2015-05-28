@@ -19,11 +19,7 @@ EOF
 
 generate_header_head
 
-printf '<title>%s -- %s </title>' "$vTitle" "$vSubTitle"
-for key in ${!vStylesheets[@]}
-do
-    printf '<link rel="stylesheet" href="%s" type="text/css">' "${vStylesheets[$key]}"
-done
+generate_header_middle
 
 generate_header_tail
 
@@ -74,12 +70,11 @@ cat << EOF
 <div class='main'>
 EOF
 
-if [ -z "$vMainMarkdown" ] 
-then
-    ( cat "$vMainHtml" || echo "$vMainHtml" ) 2> /dev/null
-else
-    ( cat "$vMainMarkdown" || echo "$vMainMarkdown" ) 2> /dev/null | markdown 
-fi
+main_markdown_head
+
+main_markdown
+
+main_markdown_tail
 
 cat << EOF
 </div><!-- class='main' -->
