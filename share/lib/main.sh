@@ -153,5 +153,5 @@ main_markdown_do () {
         folder="$(readlink -f "$folder/..")"
     done
 }
-main_markdown_head () { main_markdown_do head }
-main_markdown_tail () { main_markdown_do tail }
+main_markdown_head () { main_markdown_do head ; }
+main_markdown_tail () { main_markdown_do tail ; }
