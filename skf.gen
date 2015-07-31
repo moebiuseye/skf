@@ -133,7 +133,8 @@ unset websrc
 
 
 get_dirhash () { 
-    tree -a --timefmt "%s" -F --prune -i -f "$SRC" | grep -v -E '/$' | md5sum
+    #tree -a --timefmt "%s" -F --prune -i -f "$SRC" | grep -v -E '/$' | md5sum
+    find "$SRC" -type f -exec stat -c '%X' '{}' \; | md5sum
 }
 
 # Watching changes in SRC_DIR directory 
