@@ -64,7 +64,7 @@ t_markdown_blog_gen_posts () {
         blogpost="${blogposts[$key]}"
 	[[ -z $blogpost ]] && break
         # setting variables
-        vSubTitle=$((grep -E '^title:' | head -n 1) < "$blogpost" )
+        vSubTitle=$((grep -iE '^title:' | head -n 1) < "$blogpost" )
         vSubTitle=${vSubTitle#title:}
         
         echoerr BLOG SRC SRC_DIR "$SRC $SRC_DIR" 
