@@ -105,7 +105,7 @@ t_skf_gen () {
         then
             echoerr "mdfile $mdfile exists. Processing."
             vSubTitle=$((grep -iE '^title:' | head -n 1) < "${mdfile}" )
-            vSubTitle=${vSubTitle#title:}
+            vSubTitle=${vSubTitle##[t|T]itle:}
             vMainMarkdown="$(tail -n +2 "${mdfile}" | sed -n "/^$/,$ p")"
         fi
         

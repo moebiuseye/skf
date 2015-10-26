@@ -65,7 +65,7 @@ t_markdown_blog_gen_posts () {
 	[[ -z $blogpost ]] && break
         # setting variables
         vSubTitle=$((grep -iE '^title:' | head -n 1) < "$blogpost" )
-        vSubTitle=${vSubTitle#title:}
+        vSubTitle=${vSubTitle#[t|T]itle:}
         
         echoerr BLOG SRC SRC_DIR "$SRC $SRC_DIR" 
         if [[ "$SRC" == "$SRC_DIR" ]]
@@ -120,7 +120,7 @@ t_markdown_blog_gen_main () {
         bpDay=${bpDate[2]}
         
         bpTitle=$(head -n 1 "$blogpost")
-        bpTitle=${bpTitle#title:}
+        bpTitle=${bpTitle#[t|T]itle:}
         
         # Echoing some html
         echo "<article>"

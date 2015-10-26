@@ -40,7 +40,7 @@ do
     bpDay=${bpDate[2]}
     
     bpTitle=$(head -n 1 "$blogpost")
-    bpTitle=${bpTitle#title:}
+    bpTitle=${bpTitle#[t|T]itle:}
     echoerr "blog post URL : ${scheme}:$vUrl$bpUrl"
     cat << EOF 
         <item>
