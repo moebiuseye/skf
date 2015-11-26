@@ -165,14 +165,9 @@ skf.gen "$SRC_DIR" "$DST_DIR" &
 # Waiting until all jobs are done 
 #wait $(jobs -p) 
 
-roller=(/ – \\ \|); 
-i=0; 
 while ps $(jobs -p) > /dev/null
 do 
-    printf '%s' ${roller[$i]}
     sleep 0.1
-    printf '\b'
-    [[ $i -lt 2 ]] && ((i+=1)) || ((i=0))
 done
 
 echo "DONE!"
