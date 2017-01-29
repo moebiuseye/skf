@@ -2,6 +2,9 @@
 
 vTitle=$(echo "${vTitle:-${title:-NoTitle}}" | htmlentities )
 vSubTitle=$(echo "${vSubTitle:-${subtitle:-NoSubtitle}}" | htmlentities )
+if [[ x$scheme == x ]] && [[ x$vUrl != x ]]  ; then
+  scheme=${scheme:-https}
+fi
 
 cat << EOF 
 <?xml version="1.0" encoding="UTF-8"?>
